@@ -1,92 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="./assets/style.css" />
-  <title>Personal Library Tracker</title>
-</head>
-<body>
-  <header>
-    <div class="d-flex justify-content-between">
-      <h1 class="col">
-        <a href="/">book tracker</a>
-      </h1>
-      <!-- start book title search -->
-      <div class="col">
-        <div>
-          <h3>Add By Title</h3>
-          <form id="user-form">
-            <label class="form-label" for="title"></label>
-            <input name="title" id="book-title" placeholder="Search Books" type="text" autofocus="true" class="form-input" />
-            <button type="search" class="btn">Search</button>
-          </form>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./assets/style.css" />
+    <title>Personal Library Tracker</title>
+  </head>
+  <body>
+    <header>
+      <div class="d-flex justify-content-between mt-2">
+        <h1>
+          <a href="/" class="p-3 ml-2">book tracker</a>
+        </h1>
+        <!-- start book title search -->
+        <div class="book-search p-3 mr-4">
+          <div class="row">
+            <form id="user-form">
+              <label class="form-label" for="title"></label>
+              <input
+                name="title"
+                id="book-title"
+                placeholder="Search By Book Title"
+                type="text"
+                autofocus="true"
+                class="form-input"
+                onfocus="this.placeholder=''"
+                onblur="this.placeholder='Search By Book Title'"
+              />
+              <button type="search" class="btn btn-primary">Search</button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
 
     <!-- 3 separate rows, each with populatable objects -->
+    <main id="main-container">
+      <div class="row">
+        <section id="book-container" class="container col-sm-12 col-lg-8">
+          <!-- FIRST COLUMN: TO-READ -->
+          <div class="col">
+            <h2 id="to-read-shelf" class="text-center text-uppercase">
+              to-read
+            </h2>
+            <div
+              id="list-to-read"
+              class="bookshelf-row row justify-content-between"
+            >
+              <!-- FIRST BOOK -->
+              <div class="book-display text-center">
+                <img
+                  src="https://source.unsplash.com/random/125x200?book"
+                  alt=""
+                />
+                <div class="book-item">Sample Book1</div>
+              </div>
+              <!-- SECOND BOOK -->
+              <div class="book-display text-center">
+                <img
+                  src="https://source.unsplash.com/random/125x200?book,2"
+                  alt=""
+                />
+                <div class="book-item">Sample Book2</div>
+              </div>
+              <!-- THIRD BOOK -->
+              <div class="book-display text-center">
+                <img
+                  src="https://source.unsplash.com/random/125x200?book,3"
+                  alt=""
+                />
+                <div class="book-item">Sample Book3</div>
+              </div>
+              <!-- FOURTH BOOK -->
+              <div class="book-display text-center">
+                <img
+                  src="https://source.unsplash.com/random/125x200?book,4"
+                  alt=""
+                />
+                <div class="book-item">Sample Book4</div>
+              </div>
+              <!-- FIFTH BOOK -->
+              <div class="book-display text-center">
+                <img
+                  src="https://source.unsplash.com/random/125x200?book,41"
+                  alt=""
+                />
+                <div class="book-item">Sample Book6</div>
+              </div>
+              <!-- SIXTH BOOK -->
+              <div class="book-display text-center">
+                <img
+                  src="https://source.unsplash.com/random/125x200?book,25"
+                  alt=""
+                />
+                <div class="book-item">Sample Book6</div>
+              </div>
+            </div>
+          </div>
 
-    <main class="flex-row justify-space-between">
-      <div class="card">
-      <h2 id="reading-shelf" class="card-header">reading</h2>
-        <div id="list-reading" class="bookshelf-row">
-          <ul id="list-reading-item" class="list-group">
-            <li>Sample1</li>
-          </ul>
-        </div>
-      <h2 id="to-read-shelf" class="card-header">to-read</h2>
-        <div id="list-to-read" class="bookshelf-row">
-          <ul id="list-to-read-item" class="list-group">
-            <li>Sample2</li>
-          </ul>
-        </div>
-      <h2 id="read-shelf" class="card-header">read</h2>
-        <div id="list-read" class="bookshelf-row">
-          <ul id="list-read-item" class="list-group">
-            <li>Sample3</li>
-          </ul>
-        </div>
+          <!-- SECOND COLUMN: READING -->
+          <div class="col">
+            <h2 id="reading-shelf" class="text-center text-uppercase">
+              reading
+            </h2>
+            <div id="list-reading" class="bookshelf-row row">
+              <!-- FIRST BOOK -->
+              <div class="book-display col-lg-3 text-center">
+                <img
+                  src="https://source.unsplash.com/random/125x200?book,5"
+                  alt=""
+                />
+                <div class="book-item">Sample Book1</div>
+              </div>
+              <!-- SECOND BOOK -->
+              <div class="book-display col-lg-3 text-center">
+                <img
+                  src="https://source.unsplash.com/random/125x200?book,6"
+                  alt=""
+                />
+                <div class="book-item">Sample Book2</div>
+              </div>
+              <!-- THIRD BOOK -->
+              <div class="book-display col-lg-3 text-center">
+                <img
+                  src="https://source.unsplash.com/random/125x200?book,7"
+                  alt=""
+                />
+                <div class="book-item">Sample Book3</div>
+              </div>
+              <!-- FOURTH BOOK -->
+              <div class="book-display col-lg-3 text-center">
+                <img
+                  src="https://source.unsplash.com/random/125x200?book,8"
+                  alt=""
+                />
+                <div class="book-item">Sample Book4</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- THIRD COLUMN: READ -->
+          <div class="col">
+            <h2 id="read-shelf" class="text-center text-uppercase">read</h2>
+            <div id="list-read" class="bookshelf-row row">
+              <!-- FIRST BOOK -->
+              <div class="book-display col-lg-3 text-center">
+                <img
+                  src="https://source.unsplash.com/random/125x200?book,9"
+                  alt=""
+                />
+                <div class="book-item">Sample Book1</div>
+              </div>
+              <!-- SECOND BOOK -->
+              <div class="book-display col-lg-3 text-center">
+                <img
+                  src="https://source.unsplash.com/random/125x200?book,10"
+                  alt=""
+                />
+                <div class="book-item">Sample Book2</div>
+              </div>
+              <!-- THIRD BOOK -->
+              <div class="book-display col-lg-3 text-center">
+                <img
+                  src="https://source.unsplash.com/random/125x200?book,11"
+                  alt=""
+                />
+                <div class="book-item">Sample Book3</div>
+              </div>
+              <!-- FOURTH BOOK -->
+              <div class="book-display col-lg-3 text-center">
+                <img
+                  src="https://source.unsplash.com/random/125x200?book,12"
+                  alt=""
+                />
+                <div class="book-item">Sample Book4</div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- ASIDE FOR DICTIONARY -->
+        <aside class="container dictionary col-sm-12 col-lg-4 text-center p-3">
+          <div class="dictionary-form">
+            <h3 class="form-title">Dictionary</h3>
+            <form>
+              <label for="definition">Definition Search</label>
+              <input
+                class="form-input"
+                type="text"
+                placeholder="Enter Word"
+                name="definition"
+                id="definition"
+              />
+              <button
+                class="btn btn-secondary justify-content-center"
+                type="submit"
+              >
+                Search
+              </button>
+            </form>
+            <div class="definition-container">
+              <h4>
+                Definition of: <span class="word-definition">Insert Word</span>
+              </h4>
+              <p id="definition-results" class="definition-text">
+                **Append results here**
+              </p>
+            </div>
+          </div>
+        </aside>
       </div>
     </main>
-  <!-- an aside with a form for dictionary -->
-    <aside class="dictionary">
-      <div class="dictionary-form">
-        <h4 class="form-title">Dictionary</h4>
-          <form>
-            <label for="definition">Definition Search</label>
-            <input class="form-input" type="text" placeholder="Enter Word" name="definition" id="definition" />
-            <button class="btn" type="submit">Search</button>
-          </form>
-          <div class="definition-container">
-            <p id="definition-results" class="definition-text">**Append results here**</p>
-          </div>
-      </div>
-    </aside>
 
-  <!-- modal -->
-  <div class="modal fade" id="book-form-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="myModalTitle">Add New Book</h5>
-          <button type="utton" class="close" data-dismiss="modal">
-            <span>&times;</span>
-          </button>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="modal"
+    <!-- modal -->
+    <div class="modal fade" id="book-form-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="myModalTitle">Add New Book</h5>
+            <button type="utton" class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+            <div class="modal-body">
+              <form>
+                <div class="form-group"><label for="modal"</div>
+              </form>
             </div>
-          </form>
-        </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <script src="assets/script.js"></script>
-</body>
+    <script src="assets/script.js"></script>
+  </body>
 </html>
