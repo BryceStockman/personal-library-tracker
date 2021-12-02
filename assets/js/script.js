@@ -1,22 +1,23 @@
 var ulEl = document.getElementById('search-results');
+var imgEl = document.createElement('img')
 
   // Free Dictionary API
   fetch('https://api.dictionaryapi.dev/api/v2/entries/en/chameleon')
   .then(response => response.json())
   .then(data => console.log(data));
 
-// Search functionality
-// Look into URI encoding to handle spaces
+// Book Search functionality
 formEl = document.querySelector('#search-box')
 
-// store input value as a variable
-var getInputValue = function() {
-var inputVal = document.getElementById("search-input").value;
-// remove spaces from inputVal
-var urlReadyValue = encodeURIComponent(inputVal);
+  // store input value as a variable
+  var getInputValue = function() {
+  var inputVal = document.getElementById("book-title").value;
+  // remove spaces from inputVal
+  var urlReadyValue = encodeURIComponent(inputVal);
 
-console.log(urlReadyValue)
+  console.log(urlReadyValue)
 
+  // Add searched term variable into url to pull up results
   var apiSearchUrl = "http://openlibrary.org/search.json?q=" + urlReadyValue + "&fields=title,author_name,key,cover_i,number_of_pages_median,&limit=5";
 
   fetch(apiSearchUrl)
@@ -28,8 +29,7 @@ console.log(urlReadyValue)
         var imgEl = document.getElementById('bookImg')
         // imgEl.innerHTML = 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg'
 
-        // display book cover
-        imgEl.setAttribute('src', 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg')
+        
         
         // var showSearchResults = function() {
         //   var searchResults = []
@@ -46,12 +46,19 @@ console.log(urlReadyValue)
           var key = result?.key
           var criteria ="title: " + title + " | author: " + author + " | pages: " + pages
 
+
+          // html list elements tied to search results
           var liEl = document.createElement('li')
           ulEl.appendChild(liEl)
           liEl.textContent = criteria
+          
 
 
           console.log(title, author, coverId, pages, key)
+
+        // display book cover
+        var bookCover = imgEl.setAttribute('src', 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg')
+        return bookCover;
         })
         }
    ) }
