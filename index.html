@@ -40,7 +40,7 @@
     </header>
 
     <!-- 3 separate rows, each with populatable objects -->
-    <main id="main-container">
+    <main id="main-container" class="container">
       <div class="row">
         <section id="book-container" class="container col-sm-12 col-lg-8">
           <!-- FIRST COLUMN: TO-READ -->
@@ -50,7 +50,7 @@
             </h2>
             <div
               id="list-to-read"
-              class="bookshelf-row row justify-content-between"
+              class="bookshelf-row row justify-content-center"
             >
               <!-- FIRST BOOK -->
               <div class="book-display text-center">
@@ -90,17 +90,8 @@
                   src="https://source.unsplash.com/random/125x200?book,41"
                   alt=""
                 />
-                <div class="book-item">Sample Book6</div>
+                <div class="book-item">Sample Book5</div>
               </div>
-              <!-- SIXTH BOOK -->
-              <div class="book-display text-center">
-                <img
-                  src="https://source.unsplash.com/random/125x200?book,25"
-                  alt=""
-                />
-                <div class="book-item">Sample Book6</div>
-              </div>
-            </div>
           </div>
 
           <!-- SECOND COLUMN: READING -->
@@ -108,9 +99,12 @@
             <h2 id="reading-shelf" class="text-center text-uppercase">
               reading
             </h2>
-            <div id="list-reading" class="bookshelf-row row">
+            <div
+              id="list-reading"
+              class="bookshelf-row row justify-content-center"
+            >
               <!-- FIRST BOOK -->
-              <div class="book-display col-lg-3 text-center">
+              <div class="book-display text-center">
                 <img
                   src="https://source.unsplash.com/random/125x200?book,5"
                   alt=""
@@ -118,7 +112,7 @@
                 <div class="book-item">Sample Book1</div>
               </div>
               <!-- SECOND BOOK -->
-              <div class="book-display col-lg-3 text-center">
+              <div class="book-display text-center">
                 <img
                   src="https://source.unsplash.com/random/125x200?book,6"
                   alt=""
@@ -126,7 +120,7 @@
                 <div class="book-item">Sample Book2</div>
               </div>
               <!-- THIRD BOOK -->
-              <div class="book-display col-lg-3 text-center">
+              <div class="book-display text-center">
                 <img
                   src="https://source.unsplash.com/random/125x200?book,7"
                   alt=""
@@ -134,7 +128,7 @@
                 <div class="book-item">Sample Book3</div>
               </div>
               <!-- FOURTH BOOK -->
-              <div class="book-display col-lg-3 text-center">
+              <div class="book-display text-center">
                 <img
                   src="https://source.unsplash.com/random/125x200?book,8"
                   alt=""
@@ -147,9 +141,12 @@
           <!-- THIRD COLUMN: READ -->
           <div class="col">
             <h2 id="read-shelf" class="text-center text-uppercase">read</h2>
-            <div id="list-read" class="bookshelf-row row">
+            <div
+              id="list-read"
+              class="bookshelf-row row justify-content-center"
+            >
               <!-- FIRST BOOK -->
-              <div class="book-display col-lg-3 text-center">
+              <div class="book-display text-center">
                 <img
                   src="https://source.unsplash.com/random/125x200?book,9"
                   alt=""
@@ -157,7 +154,7 @@
                 <div class="book-item">Sample Book1</div>
               </div>
               <!-- SECOND BOOK -->
-              <div class="book-display col-lg-3 text-center">
+              <div class="book-display text-center">
                 <img
                   src="https://source.unsplash.com/random/125x200?book,10"
                   alt=""
@@ -165,7 +162,7 @@
                 <div class="book-item">Sample Book2</div>
               </div>
               <!-- THIRD BOOK -->
-              <div class="book-display col-lg-3 text-center">
+              <div class="book-display text-center">
                 <img
                   src="https://source.unsplash.com/random/125x200?book,11"
                   alt=""
@@ -173,7 +170,7 @@
                 <div class="book-item">Sample Book3</div>
               </div>
               <!-- FOURTH BOOK -->
-              <div class="book-display col-lg-3 text-center">
+              <div class="book-display text-center">
                 <img
                   src="https://source.unsplash.com/random/125x200?book,12"
                   alt=""
@@ -185,14 +182,14 @@
         </section>
         <!-- ASIDE FOR DICTIONARY -->
         <aside class="container dictionary col-sm-12 col-lg-4 text-center p-3">
-          <div class="dictionary-form">
-            <h3 class="form-title">Dictionary</h3>
-            <form>
+          <div class="dictionary-form card">
+            <h3 class="form-title card-header">Dictionary</h3>
+            <form class="card-body">
               <label for="definition">Definition Search</label>
               <input
                 class="form-input"
                 type="text"
-                placeholder="Enter Word"
+                placeholder="Enter A Word"
                 name="definition"
                 id="definition"
               />
@@ -207,8 +204,10 @@
               <h4>
                 Definition of: <span class="word-definition">Insert Word</span>
               </h4>
-              <p id="definition-results" class="definition-text">
+              <p id="definition-results" class="definition-text py-3">
                 **Append results here**
+                <br/>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto a dolore rem. Fugiat architecto nihil quas magnam laboriosam, vero totam ab! Quidem quibusdam quo tempore.
               </p>
             </div>
           </div>
