@@ -8,19 +8,21 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gwendolyn:wght@700&family=Mulish:ital,wght@0,200;0,300;0,400;1,200&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./assets/style.css" />
     <title>Personal Library Tracker</title>
   </head>
   <body>
     <header>
-      <div class="d-flex justify-content-between mt-2">
-        <h1>
-          <a href="/" class="p-3 ml-2">book tracker</a>
-        </h1>
+      <div class="d-flex justify-content-between my-2">
+        <h1 class="p-3 ml-2">BOOK TRACKER</h1>
         <!-- start book title search -->
         <div class="book-search p-3 mr-4">
           <div class="row">
-            <form id="user-form">
+            <form id="user-form" class="d-flex">
               <label class="form-label" for="title"></label>
               <input
                 name="title"
@@ -28,7 +30,7 @@
                 placeholder="Search By Book Title"
                 type="text"
                 autofocus="true"
-                class="form-input"
+                class="form-input mx-2"
                 onfocus="this.placeholder=''"
                 onblur="this.placeholder='Search By Book Title'"
               />
@@ -40,11 +42,14 @@
     </header>
 
     <!-- 3 separate rows, each with populatable objects -->
-    <main id="main-container" class="container">
+    <main id="main-container" class="container mt-2">
       <div class="row">
-        <section id="book-container" class="container col-sm-12 col-lg-8">
+        <section
+          id="book-container"
+          class="container col-sm-12 col-lg-8 secondary-bg"
+        >
           <!-- FIRST COLUMN: TO-READ -->
-          <div class="col">
+          <div class="col to-read-col">
             <h2 id="to-read-shelf" class="text-center text-uppercase">
               to-read
             </h2>
@@ -54,10 +59,12 @@
             >
               <!-- FIRST BOOK -->
               <div class="book-display text-center">
-                <img
-                  src="https://source.unsplash.com/random/125x200?book"
-                  alt=""
-                />
+                <a href="">
+                  <img
+                    src="https://source.unsplash.com/random/125x200?book"
+                    alt=""
+                  />
+                </a>
                 <div class="book-item">Sample Book1</div>
               </div>
               <!-- SECOND BOOK -->
@@ -92,10 +99,11 @@
                 />
                 <div class="book-item">Sample Book5</div>
               </div>
+            </div>
           </div>
 
           <!-- SECOND COLUMN: READING -->
-          <div class="col">
+          <div class="col reading-col">
             <h2 id="reading-shelf" class="text-center text-uppercase">
               reading
             </h2>
@@ -139,7 +147,7 @@
           </div>
 
           <!-- THIRD COLUMN: READ -->
-          <div class="col">
+          <div class="col read-col">
             <h2 id="read-shelf" class="text-center text-uppercase">read</h2>
             <div
               id="list-read"
@@ -180,18 +188,22 @@
             </div>
           </div>
         </section>
+
         <!-- ASIDE FOR DICTIONARY -->
         <aside class="container dictionary col-sm-12 col-lg-4 text-center p-3">
           <div class="dictionary-form card">
             <h3 class="form-title card-header">Dictionary</h3>
             <form class="card-body">
               <label for="definition">Definition Search</label>
+              <br />
               <input
-                class="form-input"
+                class="form-input px-3 mb-2 text-center"
                 type="text"
                 placeholder="Enter A Word"
                 name="definition"
                 id="definition"
+                onfocus="this.placeholder=''"
+                onblur="this.placeholder='Enter A Word'"
               />
               <button
                 class="btn btn-secondary justify-content-center"
@@ -201,13 +213,15 @@
               </button>
             </form>
             <div class="definition-container">
-              <h4>
+              <h4 class="px-3">
                 Definition of: <span class="word-definition">Insert Word</span>
               </h4>
-              <p id="definition-results" class="definition-text py-3">
+              <p id="definition-results" class="definition-text p-3">
                 **Append results here**
-                <br/>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto a dolore rem. Fugiat architecto nihil quas magnam laboriosam, vero totam ab! Quidem quibusdam quo tempore.
+                <br />
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                Architecto a dolore rem. Fugiat architecto nihil quas magnam
+                laboriosam, vero totam ab! Quidem quibusdam quo tempore.
               </p>
             </div>
           </div>

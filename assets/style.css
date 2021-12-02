@@ -1,1 +1,99 @@
+/* VARIABLES */
+:root {
+  --main-bg-color: #fbefd8;
+  --secondary-bg-color: #ddbc95;
+  --tertiary-bg-color: #707d81;
+  --tertiary-bg-faded: #cdcdc0;
+  --primary-color: #4b4345;
+  --primary-faded: #756c6e;
+  --secondary-color: #d13525;
+  --secondary-faded: #f74531;
+  --tertiary-color: #486824;
+  --quaternary-color: #4c3f54;
+  --shelf-color: #763626;
+  --accent-color: #f2c057;
+}
 
+/* GLOBAL STYLES */
+body {
+  background-color: var(--main-bg-color);
+  font-family: 'Mulish', sans-serif;
+  color: var(--primary-color);
+}
+
+main {
+  margin-bottom: 3rem;
+}
+
+h1 {
+  color: var(--primary-color);
+}
+
+h2 {
+  font-weight: bold;
+}
+
+/* BUTTON STYLES */
+.btn {
+  background-color: transparent;
+  border: 3px solid var(--accent-color);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-faded);
+  border: 3px solid var(--accent-color);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-faded);
+  border: 3px solid var(--accent-color);
+}
+
+/* BOOK SHELF STYLES */
+#book-container {
+  padding: 0;
+}
+
+.secondary-bg {
+  background-color: var(--secondary-bg-color);
+}
+
+.book-item {
+  font-family: 'Gwendolyn', cursive;
+}
+
+/* TO READ COLUMN */
+.to-read-col {
+  color: var(--secondary-color);
+  border: 3px solid var(--shelf-color);
+}
+
+/* READING COLUMN */
+.reading-col {
+  color: var(--tertiary-color);
+  border: 3px solid var(--shelf-color);
+}
+
+/* READ COLUMN */
+.read-col {
+  color: var(--quaternary-color);
+  border: 3px solid var(--shelf-color);
+}
+
+/* DICTIONARY STYLES */
+.card {
+  background-color: var(--tertiary-bg-faded);
+}
+
+.card-header {
+  background-color: var(--tertiary-bg-color);
+  color: white;
+}
