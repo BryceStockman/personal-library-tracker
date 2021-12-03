@@ -39,6 +39,7 @@ formEl = document.querySelector('#search-box')
         console.log(searchResults)
 
         searchResults.forEach(function(result){
+          console.log
           var title = result?.title
           var author = result?.author_name?.[0]
           var coverId = result?.cover_i
@@ -49,16 +50,16 @@ formEl = document.querySelector('#search-box')
 
           // html list elements tied to search results
           var liEl = document.createElement('li')
-          ulEl.appendChild(liEl)
           liEl.textContent = criteria
+          ulEl.appendChild(liEl)
           
 
 
           console.log(title, author, coverId, pages, key)
 
         // display book cover
-        var bookCover = imgEl.setAttribute('src', 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg')
-        return bookCover;
+        // var bookCover = imgEl.setAttribute('src', 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg')
+        // return bookCover;
         })
         }
    ) }
