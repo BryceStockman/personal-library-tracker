@@ -1,6 +1,18 @@
 var ulEl = document.getElementById('search-results');
 var imgEl = document.createElement('img')
 
+// create unique identifier based on key from api in /works/o235325l format
+var trimKey = function(key) {
+  var splitKey = key.split("/")
+  var trimmedKey = splitKey[2]
+  return trimmedKey;
+}
+
+// array for book items
+var bookItems = [];
+
+trimKey("/works/o235325l");
+
   // Free Dictionary API
   fetch('https://api.dictionaryapi.dev/api/v2/entries/en/chameleon')
   .then(response => response.json())
@@ -29,11 +41,6 @@ formEl = document.querySelector('#search-box')
         var imgEl = document.getElementById('bookImg')
         // imgEl.innerHTML = 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg'
 
-        
-        
-        // var showSearchResults = function() {
-        //   var searchResults = []
-        //   searchResults.push({})
 
         var searchResults = data.docs
         console.log(searchResults)
@@ -54,6 +61,20 @@ formEl = document.querySelector('#search-box')
           ulEl.appendChild(liEl)
           
 
+
+          var bookItem = {
+            title: title,
+            author: author,
+            coverId: coverId,
+            pages: pages,
+            key: trimKey(key)
+          }
+
+          bookItems.push(bookItem)
+          console.log(bookItems)
+
+
+          console.log(trimKey(key))
 
           console.log(title, author, coverId, pages, key)
 
