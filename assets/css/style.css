@@ -97,3 +97,17 @@ h2 {
   background-color: var(--tertiary-bg-color);
   color: white;
 }
+
+/* Modal Styles */
+.quaternary-bg {
+  background-color: var(--quaternary-color);
+  color: var(--accent-color);
+}
+
+.main-bg {
+  background-color: var(--main-bg-color);
+}
+
+.color-accent {
+  color: var(--accent-color);
+}
