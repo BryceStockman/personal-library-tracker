@@ -104,3 +104,8 @@ formEl = document.querySelector('#search-box')
 // Search API to find books - parse data for needed fields (determine what they are)
 
 // Covers API for cover images, link to Search API using cover_i 
+
+// enable draggable/sortable feaure on "book-cover" class
+$(".drag-target").sortable({
+  connectWith: $(".drag-target")
+});
