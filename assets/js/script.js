@@ -21,71 +21,73 @@ trimKey("/works/o235325l");
 // Book Search functionality
 formEl = document.querySelector('#search-box')
 
-  // store input value as a variable
-  var getInputValue = function() {
-  var inputVal = document.getElementById("book-title").value;
-  // remove spaces from inputVal
-  var urlReadyValue = encodeURIComponent(inputVal);
+// store input value as a variable
+var getInputValue = function() {
+var inputVal = document.getElementById("book-title").value;
+// remove spaces from inputVal
+var urlReadyValue = encodeURIComponent(inputVal);
 
-  console.log(urlReadyValue)
+console.log(urlReadyValue)
 
-  // Add searched term variable into url to pull up results
-  var apiSearchUrl = "http://openlibrary.org/search.json?q=" + urlReadyValue + "&fields=title,author_name,key,cover_i,number_of_pages_median,&limit=5";
+// Add searched term variable into url to pull up results
+var apiSearchUrl = "http://openlibrary.org/search.json?q=" + urlReadyValue + "&fields=title,author_name,key,cover_i,number_of_pages_median,&limit=5";
 
-  fetch(apiSearchUrl)
-  .then(function(response) {
-    if(response.ok) {
-      response.json().then(function(data) {
-        var pageCoverId = data.docs[0].cover_i
-        console.log(pageCoverId)
-        var imgEl = document.getElementById('bookImg')
-        // imgEl.innerHTML = 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg'
-
-
-        var searchResults = data.docs
-        console.log(searchResults)
-
-        searchResults.forEach(function(result){
-          console.log
-          var title = result?.title
-          var author = result?.author_name?.[0]
-          var coverId = result?.cover_i
-          var pages = result?.number_of_pages_median
-          var key = result?.key
-          var criteria ="title: " + title + " | author: " + author + " | pages: " + pages
+fetch(apiSearchUrl)
+.then(function(response) {
+  if(response.ok) {
+    response.json().then(function(data) {
+      var pageCoverId = data.docs[0].cover_i
+      console.log(pageCoverId)
+      var imgEl = document.getElementById('bookImg')
+      // imgEl.innerHTML = 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg'
 
 
-          // html list elements tied to search results
-          var liEl = document.createElement('li')
-          liEl.textContent = criteria
-          ulEl.appendChild(liEl)
-          
+      var searchResults = data.docs
+      console.log(searchResults)
+
+      searchResults.forEach(function(result){
+        console.log
+        var title = result?.title
+        var author = result?.author_name?.[0]
+        var coverId = result?.cover_i
+        var pages = result?.number_of_pages_median
+        var key = result?.key
+        var criteria ="title: " + title + " | author: " + author + " | pages: " + pages
 
 
-          var bookItem = {
-            title: title,
-            author: author,
-            coverId: coverId,
-            pages: pages,
-            key: trimKey(key)
-          }
+        // html list elements tied to search results
+        var liEl = document.createElement('li')
+        liEl.textContent = criteria
+        ulEl.appendChild(liEl)
+        
 
-          bookItems.push(bookItem)
-          console.log(bookItems)
-
-
-          console.log(trimKey(key))
-
-          console.log(title, author, coverId, pages, key)
-
-        // display book cover
-        // var bookCover = imgEl.setAttribute('src', 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg')
-        // return bookCover;
-        })
+        // create object for searched books
+        var bookItem = {
+          title: title,
+          author: author,
+          coverId: coverId,
+          pages: pages,
+          key: trimKey(key)
         }
-   ) }
-    }
-  )}
+
+        bookItems.push(bookItem)
+        console.log(bookItems)
+
+
+        console.log(trimKey(key))
+
+        console.log(title, author, coverId, pages, key)
+
+      // display book cover
+      // var bookCover = imgEl.setAttribute('src', 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg')
+      // return bookCover;
+      })
+      }
+  ) }
+  }
+)}
+
+
 //}
 
 // var showSearchResults = function() {
