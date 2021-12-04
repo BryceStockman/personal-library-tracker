@@ -115,3 +115,12 @@ a {
 .color-accent {
   color: var(--accent-color);
 }
+
+/* MODAL STYLING */
+.book-choice:before {
+  border-bottom: 1px solid #dee2e6;
+}
+
+#checkbox {
+  margin: auto 15px;
+}
