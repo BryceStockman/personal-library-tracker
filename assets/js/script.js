@@ -2,22 +2,37 @@ var imgEl = document.createElement('img');
 
 // bookChoices is the container for all book choices
 var bookChoices = document.querySelector('.book-choices');
-// book choice is a p tag container for one book choice, this is what should be iterated in the loop
-var bookChoice = document.createElement('p');
-bookChoice.classList.add('book-choice');
-// wrapper for the checkbox and book info
-var checkboxWrapper = document.createElement('span');
-checkboxWrapper.classList.add('checkbox-wrapper', 'd-flex');
-// checkbox
-var checkbox = document.createElement('input');
-checkbox.setAttribute('type', 'checkbox');
-checkbox.setAttribute('name', 'select-book');
-checkbox.setAttribute('id', 'checkbox');
-// label
-var checkboxLabel = document.createElement('label');
-checkboxLabel.setAttribute('for', 'checkbox');
-checkboxLabel.setAttribute('id', 'search-results');
-checkboxLabel.classList.add('book-info');
+
+var buildBookPEl = function() {
+  // book choice is a p tag container for one book choice, this is what should be iterated in the loop
+  var bookChoice = document.createElement('p');
+  bookChoice.classList.add('book-choice');
+  return bookChoice
+}
+var buildCheckboxWrapper = function() {
+  // wrapper for the checkbox and book info
+  var checkboxWrapper = document.createElement('span');
+  checkboxWrapper.classList.add('checkbox-wrapper', 'd-flex');
+  return checkboxWrapper
+}
+var buildCheckBox = function() {
+  // checkbox
+  var checkbox = document.createElement('input');
+  checkbox.setAttribute('type', 'checkbox');
+  checkbox.setAttribute('name', 'select-book');
+  checkbox.setAttribute('id', 'checkbox');
+  return checkbox
+}
+var buildCheckBoxLabel = function() {
+  // label
+  var checkboxLabel = document.createElement('label');
+  checkboxLabel.setAttribute('for', 'checkbox');
+  checkboxLabel.setAttribute('id', 'search-results');
+  checkboxLabel.classList.add('book-info');
+  return checkboxLabel
+}
+
+
 
 // create unique identifier based on key from api in /works/o235325l format
 var trimKey = function (key) {
@@ -55,6 +70,7 @@ var getInputValue = function () {
 
   fetch(apiSearchUrl).then(function (response) {
     if (response.ok) {
+      bookChoices.innerHTML = ""
       response.json().then(function (data) {
         var pageCoverId = data.docs[0].cover_i;
         console.log('pageCoverId', pageCoverId);
@@ -75,14 +91,20 @@ var getInputValue = function () {
           var criteria =
             'title: ' + title + ' | author: ' + author + ' | pages: ' + pages;
 
-          bookInfoEl = criteria;
-          checkboxLabel.innerText = bookInfoEl;
-          // variables created above these are to add HTML elements for liEl to go into
+          // bookInfoEl = criteria;
+
+          var bookChoice = buildBookPEl();
+          var checkboxWrapper = buildCheckboxWrapper();
+          var checkbox = buildCheckBox();
+          var checkboxLabel = buildCheckBoxLabel();
+
+          // variables created above these are to add HTML elements for book criteria to go into
           bookChoices.appendChild(bookChoice);
           bookChoice.appendChild(checkboxWrapper);
           checkboxWrapper.appendChild(checkbox);
           checkboxWrapper.appendChild(checkboxLabel);
-          checkboxWrapper.appendChild(bookInfoEl);
+          // checkboxWrapper.appendChild(bookInfoEl);
+          checkboxLabel.textContent = criteria;
 
           // html list elements tied to search results
 
