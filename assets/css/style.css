@@ -33,6 +33,10 @@ h2 {
   font-weight: bold;
 }
 
+a {
+  color: inherit;
+}
+
 /* BUTTON STYLES */
 .btn {
   background-color: transparent;
@@ -72,7 +76,7 @@ h2 {
 
 /* TO READ COLUMN */
 .to-read-col {
-  color: var(--secondary-color);
+  color: var(--secondary-color) !important;
   border: 3px solid var(--shelf-color);
 }
 
