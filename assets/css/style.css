@@ -33,6 +33,10 @@ h2 {
   font-weight: bold;
 }
 
+a {
+  color: inherit;
+}
+
 /* BUTTON STYLES */
 .btn {
   background-color: transparent;
@@ -72,7 +76,7 @@ h2 {
 
 /* TO READ COLUMN */
 .to-read-col {
-  color: var(--secondary-color);
+  color: var(--secondary-color) !important;
   border: 3px solid var(--shelf-color);
 }
 
@@ -110,4 +114,13 @@ h2 {
 
 .color-accent {
   color: var(--accent-color);
+}
+
+/* MODAL STYLING */
+.book-choice:before {
+  border-bottom: 1px solid #dee2e6;
+}
+
+#checkbox {
+  margin: auto 15px;
 }
