@@ -5,36 +5,34 @@ var imgEl = document.createElement('img');
 // bookChoices is the container for all book choices
 var bookChoices = document.querySelector('.book-choices');
 
-var buildBookPEl = function() {
+var buildBookPEl = function () {
   // book choice is a p tag container for one book choice, this is what should be iterated in the loop
   var bookChoice = document.createElement('p');
   bookChoice.classList.add('book-choice');
-  return bookChoice
-}
-var buildCheckboxWrapper = function() {
+  return bookChoice;
+};
+var buildCheckboxWrapper = function () {
   // wrapper for the checkbox and book info
   var checkboxWrapper = document.createElement('span');
   checkboxWrapper.classList.add('checkbox-wrapper', 'd-flex');
-  return checkboxWrapper
-}
-var buildCheckBox = function() {
+  return checkboxWrapper;
+};
+var buildCheckBox = function () {
   // checkbox
   var checkbox = document.createElement('input');
   checkbox.setAttribute('type', 'checkbox');
   checkbox.setAttribute('name', 'select-book');
   checkbox.setAttribute('id', 'checkbox');
-  return checkbox
-}
-var buildCheckBoxLabel = function() {
+  return checkbox;
+};
+var buildCheckBoxLabel = function () {
   // label
   var checkboxLabel = document.createElement('label');
   checkboxLabel.setAttribute('for', 'checkbox');
   checkboxLabel.setAttribute('id', 'search-results');
   checkboxLabel.classList.add('book-info');
-  return checkboxLabel
-}
-
-
+  return checkboxLabel;
+};
 
 var bookIdCounter = 0;
 
@@ -74,7 +72,7 @@ var getInputValue = function () {
 
   fetch(apiSearchUrl).then(function (response) {
     if (response.ok) {
-      bookChoices.innerHTML = ""
+      bookChoices.innerHTML = '';
       response.json().then(function (data) {
         var pageCoverId = data.docs[0].cover_i;
         // console.log('pageCoverId', pageCoverId);
@@ -109,6 +107,7 @@ var getInputValue = function () {
           checkboxWrapper.appendChild(checkboxLabel);
           // checkboxWrapper.appendChild(bookInfoEl);
           checkboxLabel.textContent = criteria;
+          checkboxLabel.setAttribute('data-book-id', coverId);
 
           // html list elements tied to search results
 
@@ -153,15 +152,15 @@ $('.drag-target').sortable({
 
 var bookSelectionHandler = function (e) {
   e.preventDefault();
-  var bookSelected = document.querySelector("input[name='select-book']").checked;
+  var bookSelected = document.querySelector(
+    "input[name='select-book']"
+  ).checked;
   // check if input values are empty
-  if(!bookSelected) {
+  if (!bookSelected) {
     alert('checkbox is not selected');
     return false;
   }
-
-
-}
+};
 
 bookChoices.addEventListener('change', function (e) {
   console.log('checkbox was changed', e);
