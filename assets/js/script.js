@@ -150,30 +150,18 @@ $('.drag-target').sortable({
   connectWith: $('.drag-target'),
 });
 
-var bookSelectionHandler = function (e) {
-  e.preventDefault();
+var addBookToList = function () {};
+
+addBookBtn.addEventListener('click', function (e) {
+  console.log('Add Book was clicked', e);
   var bookSelected = document.querySelector(
     "input[name='select-book']"
   ).checked;
   // check if input values are empty
-  if (!bookSelected) {
-    alert('checkbox is not selected');
-    return false;
-  }
-};
-
-bookChoices.addEventListener('change', function (e) {
-  console.log('checkbox was changed', e);
-  bookSelectionHandler();
-});
-
-var addBookToList = function () {
-  var bookSelected = document.querySelector('name', 'select-book').value;
   if (bookSelected) {
-    console.log('book selected');
+    console.log('checkbox checked when add btn clicked');
+    // addBookToList();
+  } else {
+    alert('Please select a book to add or close window');
   }
-};
-
-// addBookBtn.addEventListener('click', function (e) {
-//   console.log('Add Book was clicked', e);
-// });
+});
