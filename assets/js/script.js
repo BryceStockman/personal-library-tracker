@@ -34,8 +34,6 @@ var buildCheckBoxLabel = function () {
   return checkboxLabel;
 };
 
-var bookIdCounter = 0;
-
 // create unique identifier based on key from api in /works/o235325l format
 var trimKey = function (key) {
   var splitKey = key.split('/');
