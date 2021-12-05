@@ -1,3 +1,5 @@
+var addBookBtn = document.querySelector('.add-book-btn');
+var inputVal = document.getElementById('book-title').value;
 var imgEl = document.createElement('img');
 
 // bookChoices is the container for all book choices
@@ -18,6 +20,8 @@ var checkboxLabel = document.createElement('label');
 checkboxLabel.setAttribute('for', 'checkbox');
 checkboxLabel.setAttribute('id', 'search-results');
 checkboxLabel.classList.add('book-info');
+
+var bookIdCounter = 0;
 
 // create unique identifier based on key from api in /works/o235325l format
 var trimKey = function (key) {
@@ -45,7 +49,7 @@ var getInputValue = function () {
   // remove spaces from inputVal
   var urlReadyValue = encodeURIComponent(inputVal);
 
-  console.log(urlReadyValue);
+  // console.log(urlReadyValue);
 
   // Add searched term variable into url to pull up results
   var apiSearchUrl =
@@ -57,16 +61,16 @@ var getInputValue = function () {
     if (response.ok) {
       response.json().then(function (data) {
         var pageCoverId = data.docs[0].cover_i;
-        console.log('pageCoverId', pageCoverId);
+        // console.log('pageCoverId', pageCoverId);
         // WHERE IS THIS ELEMENT BEING CREATED?
         var imgEl = document.getElementById('bookImg');
         // imgEl.innerHTML = 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg'
 
         var searchResults = data.docs;
-        console.log('SEARCH RESULTS', searchResults);
+        // console.log('SEARCH RESULTS', searchResults);
 
         searchResults.forEach(function (result) {
-          console.log('RESULT', result);
+          // console.log('RESULT', result);
           var title = result?.title;
           var author = result?.author_name?.[0];
           var coverId = result?.cover_i;
@@ -82,7 +86,7 @@ var getInputValue = function () {
           bookChoice.appendChild(checkboxWrapper);
           checkboxWrapper.appendChild(checkbox);
           checkboxWrapper.appendChild(checkboxLabel);
-          checkboxWrapper.appendChild(bookInfoEl);
+          checkboxLabel.innerHTML = bookInfoEl;
 
           // html list elements tied to search results
 
@@ -95,11 +99,11 @@ var getInputValue = function () {
           };
 
           bookItems.push(bookItem);
-          console.log(bookItems);
+          // console.log(bookItems);
 
-          console.log(trimKey(key));
+          // console.log(trimKey(key));
 
-          console.log(title, author, coverId, pages, key);
+          // console.log(title, author, coverId, pages, key);
 
           // display book cover
           // var bookCover = imgEl.setAttribute('src', 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg')
@@ -124,3 +128,31 @@ var getInputValue = function () {
 $('.drag-target').sortable({
   connectWith: $('.drag-target'),
 });
+
+var bookSelectionHandler = function (e) {
+  e.preventDefault();
+  var bookSelected = document.querySelector("input[name='select-book']").checked;
+  // check if input values are empty
+  if(!bookSelected) {
+    alert('checkbox is not selected');
+    return false;
+  }
+
+
+}
+
+bookChoices.addEventListener('change', function (e) {
+  console.log('checkbox was changed', e);
+  bookSelectionHandler();
+});
+
+var addBookToList = function () {
+  var bookSelected = document.querySelector('name', 'select-book').value;
+  if (bookSelected) {
+    console.log('book selected');
+  }
+};
+
+// addBookBtn.addEventListener('click', function (e) {
+//   console.log('Add Book was clicked', e);
+// });
