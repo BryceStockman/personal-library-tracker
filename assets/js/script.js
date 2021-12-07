@@ -33,6 +33,11 @@ var buildCheckBoxLabel = function () {
   checkboxLabel.classList.add('book-info');
   return checkboxLabel;
 };
+var buildBookListBorder = function () {
+  var bookListBorders = document.createElement('div');
+  bookListBorders.classList.add('.book-list-border');
+  return bookListBorders;
+};
 
 // create unique identifier based on key from api in /works/o235325l format
 var trimKey = function (key) {
@@ -43,6 +48,7 @@ var trimKey = function (key) {
 
 // array for book items
 var bookItems = [];
+var toReadBooks = [];
 
 trimKey('/works/o235325l');
 
@@ -97,6 +103,7 @@ var getInputValue = function () {
           var checkboxWrapper = buildCheckboxWrapper();
           var checkbox = buildCheckBox();
           var checkboxLabel = buildCheckBoxLabel();
+          var bookBorders = buildBookListBorder();
 
           // variables created above these are to add HTML elements for book criteria to go into
           bookChoices.appendChild(bookChoice);
@@ -105,7 +112,7 @@ var getInputValue = function () {
           checkboxWrapper.appendChild(checkboxLabel);
           // checkboxWrapper.appendChild(bookInfoEl);
           checkboxLabel.textContent = criteria;
-          checkboxLabel.setAttribute('data-book-id', coverId);
+          checkboxLabel.setAttribute('data-book-id', key);
 
           // html list elements tied to search results
 
@@ -148,7 +155,10 @@ $('.drag-target').sortable({
   connectWith: $('.drag-target'),
 });
 
-var addBookToList = function () {};
+var addBookToList = function (bookSelected) {
+  bookItems.push(bookSelected);
+  console.log('selected book', bookSelected.value);
+};
 
 addBookBtn.addEventListener('click', function (e) {
   console.log('Add Book was clicked', e);
@@ -158,7 +168,7 @@ addBookBtn.addEventListener('click', function (e) {
   // check if input values are empty
   if (bookSelected) {
     console.log('checkbox checked when add btn clicked');
-    // addBookToList();
+    addBookToList(bookSelected);
   } else {
     alert('Please select a book to add or close window');
   }
