@@ -1,6 +1,7 @@
 var addBookBtn = document.querySelector('.add-book-btn');
 var inputVal = document.getElementById('book-title').value;
 var imgEl = document.createElement('img');
+var btnEl = document.getElementById('add-book')
 
 // bookChoices is the container for all book choices
 var bookChoices = document.querySelector('.book-choices');
@@ -52,8 +53,8 @@ var bookItems = [];
 
 // Free Dictionary API
 fetch('https://api.dictionaryapi.dev/api/v2/entries/en/chameleon')
-  .then((response) => response.json())
-  .then((data) => console.log(data));
+  .then(response => response.json())
+  .then(data => console.log(data));
 
 // Book Search functionality
 formEl = document.querySelector('#search-box');
@@ -128,6 +129,56 @@ var getInputValue = function () {
   });
 };
 
+
+// display book cover
+// var bookCover = imgEl.setAttribute('src', 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg')
+// return bookCover;
+
+
+// represents a book that has been selected from search modal
+var dummyBook = {
+  title: 'Foundation',
+  author: 'Isaac Asimov',
+  coverId: 6501822,
+  pages: 254,
+  key: 'OL46125W'
+}
+
+// create a function that is tied to the add item on the modal, this function will save the book object that is radio selected to a saved books array
+var saveBookToShelf = function(book) {
+  // when radio button is set up, parameter book will be fed in from radio
+  dummyBook.shelf = "to-read"
+  // capture books existing in localStorage with gitItem
+  var savedBooks = localStorage.getItem('booksForShelf')
+  
+  // create if (if booksForShelf is empty, create the array)
+  // push selected book into the array
+  // add new item to local storage
+  localStorage.setItem('booksForShelf', JSON.stringify(dummyBook));
+
+  // parse data to go back to original state that Javascript can understand
+
+  // store new items to array and put it back in local storage
+
+
+  console.log(savedBooks)
+}
+
+btnEl.onclick = saveBookToShelf
+
+// function will build html elements and display book on to-read shelf / stored in local storage
+// book item object, add key value pair in object for shelf (to-read, reading, read)
+
+
+
+
+//}
+
+// var showSearchResults = function() {
+// var searchResults = []
+// searchResults.push({})
+// }
+
 var addBookToShelf = function (selectedBookId) {
   bookItems.find(function(book){ 
     if(book.key === selectedBookId){
@@ -160,8 +211,8 @@ addBookBtn.addEventListener('click', function (e) {
 
 
 
-
 // enable draggable/sortable feaure on "book-cover" class
+
 $('.drag-target').sortable({
   connectWith: $('.drag-target'),
 });
