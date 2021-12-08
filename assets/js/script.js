@@ -1,5 +1,5 @@
 var addBookBtn = document.querySelector('.add-book-btn');
-var imgEl = document.createElement('img');
+
 var btnEl = document.getElementById('add-book');
 // bookChoices is the container for all book choices
 var bookChoices = document.querySelector('.book-choices');
@@ -75,8 +75,6 @@ var getInputValue = function () {
       response.json().then(function (data) {
         var pageCoverId = data.docs[0].cover_i;
         // console.log('pageCoverId', pageCoverId);
-        // WHERE IS THIS ELEMENT BEING CREATED?
-        var imgEl = document.getElementById('bookImg');
         // imgEl.innerHTML = 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg'
 
         var searchResults = data.docs;
@@ -171,8 +169,31 @@ var saveBookToShelf = function (book) {
 var addBookToShelf = function (selectedBookId) {
   bookItems.find(function (book) {
     if (book.key === selectedBookId) {
-      console.log(book);
+      console.log('book coverId', book.coverId);
+      var bookCover = book.coverId;
       // push items to array (on local storage)
+      var bookshelfRow = document.querySelector('.bookshelf-row');
+      var bookDisplayContainer = document.createElement('div');
+      bookDisplayContainer.classList.add(
+        'book-display',
+        'text-center',
+        'drag-target'
+      );
+      var imageAnchor = document.createElement('a');
+      var imgEl = document.createElement('img');
+      imgEl.setAttribute(
+        'src',
+        `https://covers.openlibrary.org/b/id/${bookCover}-M.jpg`
+      );
+      // imgEl.innerHTML = `https://covers.openlibrary.org/b/id/${bookCover}-M.jpg`;
+      var bookTitle = document.createElement('h6');
+      bookTitle.innerText = book.title;
+      bookTitle.classList.add('book-item');
+
+      bookshelfRow.appendChild(bookDisplayContainer);
+      bookDisplayContainer.appendChild(imageAnchor);
+      imageAnchor.appendChild(imgEl);
+      bookDisplayContainer.appendChild(bookTitle);
     }
   });
 };
