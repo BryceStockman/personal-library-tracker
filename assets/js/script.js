@@ -30,7 +30,7 @@ var buildCheckBox = function (key) {
   var checkbox = document.createElement('input');
   checkbox.setAttribute('type', 'checkbox');
   checkbox.setAttribute('name', 'select-book');
-  checkbox.setAttribute('id', 'checkbox');
+  checkbox.setAttribute('id', trimKey(key));
   checkbox.setAttribute('class', 'checkbox');
   checkbox.setAttribute('data-book-id', trimKey(key));
   return checkbox;
@@ -38,7 +38,7 @@ var buildCheckBox = function (key) {
 var buildCheckBoxLabel = function (key, criteria) {
   // label
   var checkboxLabel = document.createElement('label');
-  checkboxLabel.setAttribute('for', 'checkbox');
+  checkboxLabel.setAttribute('for', trimKey(key));
   checkboxLabel.setAttribute('id', 'search-results');
   checkboxLabel.classList.add('book-info');
   checkboxLabel.textContent = criteria;
