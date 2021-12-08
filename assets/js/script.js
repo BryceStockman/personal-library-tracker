@@ -177,14 +177,19 @@ var addBookToShelf = function (selectedBookId) {
       bookDisplayContainer.classList.add(
         'book-display',
         'text-center',
-        'drag-target'
+        'drag-target',
+        'ui-sortable'
       );
       var imageAnchor = document.createElement('a');
+      imageAnchor.setAttribute('href', '');
+      imageAnchor.classList.add('book-cover', 'ui-sortable-handle');
       var imgEl = document.createElement('img');
       imgEl.setAttribute(
         'src',
         `https://covers.openlibrary.org/b/id/${bookCover}-M.jpg`
       );
+      // book-cover ui-sortable-handle
+
       // imgEl.innerHTML = `https://covers.openlibrary.org/b/id/${bookCover}-M.jpg`;
       var bookTitle = document.createElement('h6');
       bookTitle.innerText = book.title;
@@ -195,6 +200,9 @@ var addBookToShelf = function (selectedBookId) {
       imageAnchor.appendChild(imgEl);
       bookDisplayContainer.appendChild(bookTitle);
     }
+  });
+  $('.drag-target').sortable({
+    connectWith: $('.drag-target'),
   });
 };
 
