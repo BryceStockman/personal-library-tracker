@@ -49,7 +49,7 @@ var buildCheckBoxLabel = function (key, criteria) {
 
 
 // array for book items
-var bookItems = [];
+var searchedBookResults = [];
 
 // Free Dictionary API
 fetch('https://api.dictionaryapi.dev/api/v2/entries/en/chameleon')
@@ -79,8 +79,8 @@ var getInputValue = function () {
       response.json().then(function (data) {
         var pageCoverId = data.docs[0].cover_i;
         // console.log('pageCoverId', pageCoverId);
-        // WHERE IS THIS ELEMENT BEING CREATED?
-        var imgEl = document.getElementById('bookImg');
+
+        // var imgEl = document.getElementById('bookImg');
         // imgEl.innerHTML = 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg'
 
         var searchResults = data.docs;
@@ -117,9 +117,10 @@ var getInputValue = function () {
             key: trimKey(key),
           };
 
-          bookItems.push(bookItem);
+          searchedBookResults.push(bookItem);
         
           // Covers API for cover images, link to Search API using cover_i
+
           // display book cover
           // var bookCover = imgEl.setAttribute('src', 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg')
           // return bookCover;
@@ -135,54 +136,41 @@ var getInputValue = function () {
 // return bookCover;
 
 
-// represents a book that has been selected from search modal
-var dummyBook = {
-  title: 'Foundation',
-  author: 'Isaac Asimov',
-  coverId: 6501822,
-  pages: 254,
-  key: 'OL46125W'
-}
-
 // create a function that is tied to the add item on the modal, this function will save the book object that is radio selected to a saved books array
-var saveBookToShelf = function(book) {
+var saveBookToLocalStorage = function(book) {
   // when radio button is set up, parameter book will be fed in from radio
-  dummyBook.shelf = "to-read"
+  book.shelf = "to-read"
   // capture books existing in localStorage with gitItem
-  var savedBooks = localStorage.getItem('booksForShelf')
-  
+  // JSON.parse is usually used with getItem to make the information readable by JS
+  var existingBooksOnLocalStorage =  JSON.parse(localStorage.getItem('booksForShelf'))
   // create if (if booksForShelf is empty, create the array)
-  // push selected book into the array
-  // add new item to local storage
-  localStorage.setItem('booksForShelf', JSON.stringify(dummyBook));
+  if(Array.isArray(existingBooksOnLocalStorage) === false) {
+    console.log('there are no books in the array')
+    var newArrayForBooksOnLocalStorage = []
+    // push selected book into the array
+    newArrayForBooksOnLocalStorage.push(book)
+    localStorage.setItem('booksForShelf', JSON.stringify(newArrayForBooksOnLocalStorage))
+    console.log('new array result',JSON.stringify(newArrayForBooksOnLocalStorage) )
+  } else {
+    existingBooksOnLocalStorage.push(book)
+    localStorage.setItem('booksForShelf', JSON.stringify(existingBooksOnLocalStorage))
+    console.log('existing array result', JSON.stringify(existingBooksOnLocalStorage))
+  }
 
-  // parse data to go back to original state that Javascript can understand
 
-  // store new items to array and put it back in local storage
-
-
-  console.log(savedBooks)
+  console.log(existingBooksOnLocalStorage)
 }
 
-btnEl.onclick = saveBookToShelf
 
 // function will build html elements and display book on to-read shelf / stored in local storage
 // book item object, add key value pair in object for shelf (to-read, reading, read)
 
 
-
-
-//}
-
-// var showSearchResults = function() {
-// var searchResults = []
-// searchResults.push({})
-// }
-
 var addBookToShelf = function (selectedBookId) {
-  bookItems.find(function(book){ 
+  searchedBookResults.find(function(book){ 
+    console.log('Add Book to Shelf is running')
     if(book.key === selectedBookId){
-      console.log(book)
+      saveBookToLocalStorage(book);
       // push items to array (on local storage)
     }
   })
@@ -197,6 +185,7 @@ addBookBtn.addEventListener('click', function (e) {
     if (bookCheckboxes[i].checked) {
       var selectedBookId = bookCheckboxes[i].getAttribute('data-book-id')
       addBookToShelf(selectedBookId);
+
     } else {
       uncheckedBoxes++
     }
