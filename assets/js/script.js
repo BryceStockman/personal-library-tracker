@@ -262,6 +262,6 @@ definitionBtn.addEventListener('click', function (event) {
 
 // enable draggable/sortable feature on "book-cover" class
 
-// $('.drag-target').sortable({
-//   connectWith: $('.drag-target'),
-// });
+$('.drag-target').sortable({
+  connectWith: $('.drag-target'),
+});
