@@ -67,7 +67,7 @@ var getInputValue = function () {
   var apiSearchUrl =
     'http://openlibrary.org/search.json?q=' +
     urlReadyValue +
-    '&fields=title,author_name,key,cover_i,number_of_pages_median,&limit=5';
+    '&fields=title,author_name,key,cover_i,number_of_pages_median,&limit=10';
 
   fetch(apiSearchUrl).then(function (response) {
     if (response.ok) {
