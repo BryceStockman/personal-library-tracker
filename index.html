@@ -67,131 +67,53 @@
         >
           <!-- FIRST COLUMN: TO-READ -->
           <div class="col to-read-col">
-            <h2 id="to-read-shelf" class="text-center text-uppercase">
+            <h2 id="to-read-shelf" class="text-center text-uppercase mb-2">
               to-read
             </h2>
+
             <div
               id="list-to-read"
-              class="bookshelf-row row justify-content-center"
-            >
-              <!-- FIRST BOOK -->
-              <!-- <div class="book-display text-center drag-target">
-                <a href="">
-                  <img
-                    src="https://source.unsplash.com/random/125x200?book"
-                    alt=""
-                  />
-                  <div class="book-item">Sample Book1</div>
-                </a>
-              </div> -->
-            </div>
+              class="bookshelf-row row justify-content-center drag-target"
+            ></div>
           </div>
 
           <!-- SECOND COLUMN: READING -->
           <div class="col reading-col">
-            <h2 id="reading-shelf" class="text-center text-uppercase">
+            <h2 id="reading-shelf" class="text-center text-uppercase mb-2">
               reading
             </h2>
             <div
               id="list-reading"
-              class="bookshelf-row row justify-content-center"
-            >
-              <!-- FIRST BOOK -->
-              <div class="book-display text-center drag-target">
-                <a href="" class="book-cover">
-                  <img
-                    src="https://source.unsplash.com/random/125x200?book,5"
-                    alt=""
-                  />
-                  <div class="book-item">Sample Book1</div>
-                </a>
-              </div>
-              <!-- SECOND BOOK -->
-              <div class="book-display text-center drag-target">
-                <a href="" class="book-cover">
-                  <img
-                    src="https://source.unsplash.com/random/125x200?book,6"
-                    alt=""
-                  />
-                  <div class="book-item">Sample Book2</div>
-                </a>
-              </div>
-              <!-- THIRD BOOK -->
-              <div class="book-display text-center drag-target">
-                <a href="" class="book-cover">
-                  <img
-                    src="https://source.unsplash.com/random/125x200?book,7"
-                    alt=""
-                  />
-                  <div class="book-item">Sample Book3</div>
-                </a>
-              </div>
-              <!-- FOURTH BOOK -->
-              <div class="book-display text-center drag-target">
-                <a href="" class="book-cover">
-                  <img
-                    src="https://source.unsplash.com/random/125x200?book,8"
-                    alt=""
-                  />
-                  <div class="book-item">Sample Book4</div>
-                </a>
-              </div>
-            </div>
+              class="
+                bookshelf-row
+                row
+                justify-content-center
+                align-content-center
+                drag-target
+              "
+            ></div>
           </div>
 
           <!-- THIRD COLUMN: READ -->
           <div class="col read-col">
-            <h2 id="read-shelf" class="text-center text-uppercase">read</h2>
+            <h2 id="read-shelf" class="text-center text-uppercase mb-2">
+              read
+            </h2>
             <div
               id="list-read"
-              class="bookshelf-row row justify-content-center"
-            >
-              <!-- FIRST BOOK -->
-              <div class="book-display text-center drag-target">
-                <a href="" class="book-cover">
-                  <img
-                    src="https://source.unsplash.com/random/125x200?book,9"
-                    alt=""
-                  />
-                  <div class="book-item">Sample Book1</div>
-                </a>
-              </div>
-              <!-- SECOND BOOK -->
-              <div class="book-display text-center drag-target">
-                <a href="" class="book-cover">
-                  <img
-                    src="https://source.unsplash.com/random/125x200?book,10"
-                    alt=""
-                  />
-                  <div class="book-item">Sample Book2</div>
-                </a>
-              </div>
-              <!-- THIRD BOOK -->
-              <div class="book-display text-center drag-target">
-                <a href="" class="book-cover">
-                  <img
-                    src="https://source.unsplash.com/random/125x200?book,11"
-                    alt=""
-                  />
-                  <div class="book-item">Sample Book3</div>
-                </a>
-              </div>
-              <!-- FOURTH BOOK -->
-              <div class="book-display text-center drag-target">
-                <a href="" class="book-cover">
-                  <img
-                    src="https://source.unsplash.com/random/125x200?book,12"
-                    alt=""
-                  />
-                  <div class="book-item">Sample Book4</div>
-                </a>
-              </div>
-            </div>
+              class="
+                bookshelf-row
+                row
+                justify-content-center
+                align-content-center
+                drag-target
+              "
+            ></div>
           </div>
         </section>
 
         <!-- ASIDE FOR DICTIONARY -->
-        <aside class="container dictionary col-sm-12 col-lg-4 text-center">
+        <aside class="container dictionary col-sm-12 col-lg-4 text-center my-4">
           <div class="dictionary-form card">
             <h3 class="form-title card-header">Dictionary</h3>
             <form class="card-body">
@@ -226,7 +148,6 @@
     </main>
 
     <!-- modal -->
-    <!-- class="modal fade" -->
     <div
       id="book-form-modal"
       class="modal fade"
@@ -273,6 +194,23 @@
         </div>
       </div>
     </div>
+
+    <footer>
+      <div class="container">
+        <div class="row">
+          <h2 class="col-8 text-left">
+            Made by: Jessica Groves, Bryce Stockman, Cameron Nord
+          </h2>
+          <div class="col-4 text-left">
+            <h3>APIs used:</h3>
+            <ol>
+              <li>https://openlibrary.org/</li>
+              <li>https://www.datamuse.com/api/</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </footer>
 
     <script
       src="https://code.jquery.com/jquery-3.6.0.js"

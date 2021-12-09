@@ -33,6 +33,7 @@ var buildCheckBox = function (key) {
   checkbox.setAttribute('id', trimKey(key));
   checkbox.setAttribute('class', 'checkbox');
   checkbox.setAttribute('data-book-id', trimKey(key));
+  checkbox.classList.add('mr-3', 'my-auto');
   return checkbox;
 };
 var buildCheckBoxLabel = function (key, criteria) {
@@ -173,16 +174,12 @@ var addBookToShelf = function (selectedBookId) {
       var bookCover = book.coverId;
       // push items to array (on local storage)
       var bookshelfRow = document.querySelector('.bookshelf-row');
+      bookshelfRow.classList.add('drag-target');
       var bookDisplayContainer = document.createElement('div');
-      bookDisplayContainer.classList.add(
-        'book-display',
-        'text-center',
-        'drag-target',
-        'ui-sortable'
-      );
+      bookDisplayContainer.classList.add('book-display', 'text-center', 'p-2');
       var imageAnchor = document.createElement('a');
       imageAnchor.setAttribute('href', '');
-      imageAnchor.classList.add('book-cover', 'ui-sortable-handle');
+      imageAnchor.classList.add('book-cover');
       var imgEl = document.createElement('img');
       imgEl.setAttribute(
         'src',
@@ -201,8 +198,25 @@ var addBookToShelf = function (selectedBookId) {
       bookDisplayContainer.appendChild(bookTitle);
     }
   });
+
   $('.drag-target').sortable({
+    revert: true,
     connectWith: $('.drag-target'),
+    scroll: false,
+    tolerance: 'pointer',
+    helper: 'clone',
+    activate: function (event) {
+      $(this).addClass('dropover');
+    },
+    deactivate: function (event) {
+      $(this).removeClass('dropover');
+    },
+    over: function (event) {
+      $(event.target).addClass('dropover-active');
+    },
+    out: function (event) {
+      $(event.target).removeClass('dropover-active');
+    },
   });
 };
 
@@ -292,5 +306,21 @@ definitionBtn.addEventListener('click', function (event) {
 // enable draggable/sortable feature on "book-cover" class
 
 $('.drag-target').sortable({
+  revert: true,
   connectWith: $('.drag-target'),
+  scroll: false,
+  tolerance: 'pointer',
+  helper: 'clone',
+  activate: function (event) {
+    $(this).addClass('dropover');
+  },
+  deactivate: function (event) {
+    $(this).removeClass('dropover');
+  },
+  over: function (event) {
+    $(event.target).addClass('dropover-active');
+  },
+  out: function (event) {
+    $(event.target).removeClass('dropover-active');
+  },
 });

@@ -10,6 +10,7 @@
   --secondary-faded: #f74531;
   --tertiary-color: #486824;
   --quaternary-color: #4c3f54;
+  --quaternary-faded: #816990;
   --shelf-color: #763626;
   --accent-color: #f2c057;
 }
@@ -35,6 +36,19 @@ h2 {
 
 a {
   color: inherit;
+}
+
+h6:hover {
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.book-display h6 {
+  max-width: 75%;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
 }
 
 /* BUTTON STYLES */
@@ -78,18 +92,30 @@ a {
 .to-read-col {
   color: var(--secondary-color) !important;
   border: 3px solid var(--shelf-color);
+  padding: 0.75rem 0;
 }
 
 /* READING COLUMN */
 .reading-col {
   color: var(--tertiary-color);
   border: 3px solid var(--shelf-color);
+  padding: 0.75rem 0;
 }
 
 /* READ COLUMN */
 .read-col {
   color: var(--quaternary-color);
   border: 3px solid var(--shelf-color);
+  padding: 0.75rem 0;
+}
+
+/* COLUMNS */
+.dropover-active {
+  background-color: var(--quaternary-faded);
+}
+
+.bookshelf-row {
+  min-height: 10vh;
 }
 
 /* DICTIONARY STYLES */
@@ -102,7 +128,25 @@ a {
   color: white;
 }
 
-/* Modal Styles */
+/* FOOTER STYLES */
+footer {
+  background: var(--primary-color);
+  padding: 40px 35px;
+  display: flex;
+  justify-content: space-between;
+}
+
+footer h2,
+footer h3 {
+  color: var(--accent-color);
+  max-width: 100%;
+}
+
+footer ol li {
+  color: var(--accent-color);
+}
+
+/* MODAL STYLES */
 .quaternary-bg {
   background-color: var(--quaternary-color);
   color: var(--accent-color);
@@ -123,4 +167,13 @@ a {
 
 #checkbox {
   margin: auto 15px;
+}
+
+/* DRAG AND DROP */
+.dropover {
+  background-color: var(--main-bg-color);
+}
+
+.dropover-active {
+  background-color: var(--primary-color);
 }
