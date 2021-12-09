@@ -20,6 +20,7 @@ body {
   background-color: var(--main-bg-color);
   font-family: 'Mulish', sans-serif;
   color: var(--primary-color);
+  min-height: 100vh;
 }
 
 main {
@@ -131,9 +132,10 @@ h6:hover {
 /* FOOTER STYLES */
 footer {
   background: var(--primary-color);
-  padding: 40px 35px;
-  display: flex;
   justify-content: space-between;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 footer h2,
