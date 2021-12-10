@@ -173,7 +173,7 @@ var addBookToShelf = function (selectedBookId) {
       var bookshelfRow = document.querySelector('.bookshelf-row');
       bookshelfRow.classList.add('drag-target');
       var bookDisplayContainer = document.createElement('div');
-      bookDisplayContainer.classList.add('book-display', 'text-center', 'p-2');
+      bookDisplayContainer.classList.add('book-display', 'col', 'text-center');
       var imageAnchor = document.createElement('a');
       imageAnchor.setAttribute('href', '');
       imageAnchor.classList.add('book-cover');

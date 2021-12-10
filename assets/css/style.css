@@ -20,11 +20,12 @@ body {
   background-color: var(--main-bg-color);
   font-family: 'Mulish', sans-serif;
   color: var(--primary-color);
-  min-height: 100vh;
+  padding-bottom: 70px;
 }
 
 main {
   margin-bottom: 3rem;
+  min-height: 150vh;
 }
 
 h1 {
@@ -79,6 +80,7 @@ h6:hover {
 /* BOOK SHELF STYLES */
 #book-container {
   padding: 0;
+  margin-bottom: 75px;
 }
 
 .secondary-bg {
@@ -115,6 +117,10 @@ h6:hover {
   min-height: 10vh;
 }
 
+.col {
+  padding: 0 5px;
+}
+
 /* DICTIONARY STYLES */
 .card {
   background-color: var(--tertiary-bg-faded);
@@ -125,11 +131,14 @@ h6:hover {
   color: white;
 }
 
+.form-input {
+  width: 100%;
+}
+
 /* FOOTER STYLES */
 footer {
   background: var(--primary-color);
   justify-content: space-between;
-  bottom: 0;
   width: 100%;
 }
 
@@ -173,4 +182,43 @@ footer ol li {
 
 .dropover-active {
   background-color: var(--primary-color);
+}
+
+/* MEDIA QUERIES */
+
+@media (min-width: 1750px) {
+  .container {
+    max-width: 1700px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    min-width: 1400px;
+  }
+}
+
+@media (max-width: 1200px) {
+  #book-container {
+    margin-bottom: 25px;
+  }
+  .form-input {
+    width: 50%;
+  }
+}
+
+@media (max-width: 675px) {
+  h1 {
+    font-size: 24px;
+  }
+  .book-search {
+    padding: 8px;
+  }
+  footer h2,
+  footer h3 {
+    font-size: 18px;
+  }
+  footer ol li {
+    font-size: 12px;
+  }
 }
