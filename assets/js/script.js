@@ -58,6 +58,7 @@ formEl = document.querySelector('#search-box');
 
 // store input value as a variable
 var getInputValue = function () {
+  bookItems = [];
   var inputVal = document.getElementById('book-title').value;
   // remove spaces from inputVal
   var urlReadyValue = encodeURIComponent(inputVal);
@@ -79,10 +80,8 @@ var getInputValue = function () {
         // imgEl.innerHTML = 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg'
 
         var searchResults = data.docs;
-        console.log('SEARCH RESULTS', searchResults);
 
         searchResults.forEach(function (result) {
-          // console.log('RESULT', result);
           var title = result?.title;
           var author = result?.author_name?.[0];
           var coverId = result?.cover_i;
@@ -113,6 +112,7 @@ var getInputValue = function () {
           };
 
           bookItems.push(bookItem);
+          console.log(bookItems);
 
           // Covers API for cover images, link to Search API using cover_i
           // display book cover
@@ -152,8 +152,6 @@ var saveBookToShelf = function (book) {
   // parse data to go back to original state that Javascript can understand
 
   // store new items to array and put it back in local storage
-
-  console.log(savedBooks);
 };
 
 // btnEl.onclick = saveBookToShelf
@@ -170,7 +168,6 @@ var saveBookToShelf = function (book) {
 var addBookToShelf = function (selectedBookId) {
   bookItems.find(function (book) {
     if (book.key === selectedBookId) {
-      console.log('book coverId', book.coverId);
       var bookCover = book.coverId;
       // push items to array (on local storage)
       var bookshelfRow = document.querySelector('.bookshelf-row');
@@ -237,12 +234,9 @@ var dictionaryDefinition = function (userWordInput) {
     fetch(apiWordUrl)
       .then((response) => response.json())
       .then((data) => {
-        console.log('api data', data);
         populateWordDefinition(data);
       });
-  } catch (error) {
-    console.log('error encountered trying to fetch data', error);
-  }
+  } catch (error) {}
 };
 
 function populateWordDefinition(word) {
@@ -277,11 +271,13 @@ function populateWordDefinition(word) {
 // };
 
 addBookBtn.addEventListener('click', function (e) {
-  console.log('Add Book was clicked', e);
-
+  e.preventDefault();
   var uncheckedBoxes = 0;
+  console.log(uncheckedBoxes);
   var bookCheckboxes = document.getElementsByClassName('checkbox');
+
   for (let i = 0; i < bookCheckboxes.length; i++) {
+    console.log(bookCheckboxes[i].checked);
     if (bookCheckboxes[i].checked) {
       var selectedBookId = bookCheckboxes[i].getAttribute('data-book-id');
       addBookToShelf(selectedBookId);
