@@ -85,10 +85,6 @@ h6:hover {
   background-color: var(--secondary-bg-color);
 }
 
-.book-item {
-  font-family: 'Gwendolyn', cursive;
-}
-
 /* TO READ COLUMN */
 .to-read-col {
   color: var(--secondary-color) !important;
