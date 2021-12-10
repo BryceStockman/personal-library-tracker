@@ -15,17 +15,30 @@
   --accent-color: #f2c057;
 }
 
+* {
+  box-sizing: border-box;
+}
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
 /* GLOBAL STYLES */
 body {
   background-color: var(--main-bg-color);
   font-family: 'Mulish', sans-serif;
   color: var(--primary-color);
   padding-bottom: 70px;
+  height: 100%;
+  position: relative;
 }
 
-main {
-  margin-bottom: 3rem;
-  min-height: 150vh;
+#main-container {
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 100px; /* height of your footer */
 }
 
 h1 {
@@ -55,8 +68,8 @@ h6:hover {
 
 /* BUTTON STYLES */
 .btn {
-  background-color: transparent;
   border: 3px solid var(--accent-color);
+  color: var(--accent-color);
 }
 
 .btn-primary {
@@ -114,7 +127,7 @@ h6:hover {
 }
 
 .bookshelf-row {
-  min-height: 10vh;
+  min-height: 15vh;
 }
 
 .col {
@@ -124,21 +137,27 @@ h6:hover {
 /* DICTIONARY STYLES */
 .card {
   background-color: var(--tertiary-bg-faded);
+  color: var(--primary-color);
 }
 
 .card-header {
   background-color: var(--tertiary-bg-color);
-  color: white;
+  color: var(--main-bg-color);
 }
 
 .form-input {
   width: 100%;
 }
 
+.word-definitions {
+  text-align: left;
+}
+
 /* FOOTER STYLES */
 footer {
   background: var(--primary-color);
-  justify-content: space-between;
+  position: absolute;
+  bottom: 0;
   width: 100%;
 }
 
@@ -146,6 +165,7 @@ footer h2,
 footer h3 {
   color: var(--accent-color);
   max-width: 100%;
+  text-align: left;
 }
 
 footer ol li {
@@ -214,11 +234,17 @@ footer ol li {
   .book-search {
     padding: 8px;
   }
+  footer {
+    text-align: center;
+  }
   footer h2,
   footer h3 {
     font-size: 18px;
+    text-align: center !important;
   }
   footer ol li {
     font-size: 12px;
+    text-align: center;
+    list-style: none;
   }
 }

@@ -245,13 +245,16 @@ function populateWordDefinition(word) {
   // header for word to be inserted in
   var wordToDefine = document.querySelector('.word-definition ');
   wordToDefine.innerText = word[i].word;
+  // container for the definition
+  var definitionContainer = document.querySelector('.definition-text');
+  var definitionList = document.createElement('ol');
 
   for (i = 0; i < definitions.length; i++) {
-    // container for the definition
-    var definitionContainer = document.querySelector('.definition-text');
-    var definitionEl = document.createElement('div');
-    definitionContainer.appendChild(definitionEl);
+    var definitionEl = document.createElement('li');
+    definitionEl.classList.add('word-definitions');
     definitionEl.innerHTML = definitions[i];
+    definitionList.appendChild(definitionEl);
+    definitionContainer.appendChild(definitionList);
   }
 }
 //   fetch(apiWordUrl).then(function (response) {
