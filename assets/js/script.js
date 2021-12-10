@@ -1,16 +1,22 @@
 var addBookBtn = document.querySelector('.add-book-btn');
+var inputVal = document.getElementById('book-title').value;
+var imgEl = document.createElement('img');
+var btnEl = document.getElementById('add-book')
 
-var btnEl = document.getElementById('add-book');
 // bookChoices is the container for all book choices
 var bookChoices = document.querySelector('.book-choices');
+
+
+// on window loading, generate items from local storage
+// window.onload = function() {JSON.parse(localStorage.getItem("booksForShelf"))}
+
+
 // create unique identifier for each book based on key from api in /works/o235325l format
 var trimKey = function (key) {
   var splitKey = key.split('/');
   var trimmedKey = splitKey[2];
   return trimmedKey;
 };
-
-var definitionBtn = document.querySelector('.definition-btn');
 
 // build checkbox and labels for modal for all 5 book options
 var buildBookPEl = function () {
@@ -30,16 +36,15 @@ var buildCheckBox = function (key) {
   var checkbox = document.createElement('input');
   checkbox.setAttribute('type', 'checkbox');
   checkbox.setAttribute('name', 'select-book');
-  checkbox.setAttribute('id', trimKey(key));
-  checkbox.setAttribute('class', 'checkbox');
-  checkbox.setAttribute('data-book-id', trimKey(key));
-  checkbox.classList.add('mr-3', 'my-auto');
+  checkbox.setAttribute('id', 'checkbox');
+  checkbox.setAttribute('class', 'checkbox')
+  checkbox.setAttribute('data-book-id', trimKey(key))
   return checkbox;
 };
 var buildCheckBoxLabel = function (key, criteria) {
   // label
   var checkboxLabel = document.createElement('label');
-  checkboxLabel.setAttribute('for', trimKey(key));
+  checkboxLabel.setAttribute('for', 'checkbox');
   checkboxLabel.setAttribute('id', 'search-results');
   checkboxLabel.classList.add('book-info');
   checkboxLabel.textContent = criteria;
@@ -47,41 +52,47 @@ var buildCheckBoxLabel = function (key, criteria) {
   return checkboxLabel;
 };
 
+
 // array for book items
-var bookItems = [];
-var toReadBooks = [];
-// array for dictionary
-var dictionary = [];
+var searchedBookResults = [];
+
+// Free Dictionary API
+fetch('https://api.dictionaryapi.dev/api/v2/entries/en/chameleon')
+  .then(response => response.json())
+  .then(data => console.log(data));
 
 // Book Search functionality
 formEl = document.querySelector('#search-box');
 
 // store input value as a variable
 var getInputValue = function () {
-  bookItems = [];
   var inputVal = document.getElementById('book-title').value;
   // remove spaces from inputVal
   var urlReadyValue = encodeURIComponent(inputVal);
+
   // console.log(urlReadyValue);
 
   // Add searched term variable into url to pull up results
   var apiSearchUrl =
     'http://openlibrary.org/search.json?q=' +
     urlReadyValue +
-    '&fields=title,author_name,key,cover_i,number_of_pages_median,&limit=10';
+    '&fields=title,author_name,key,cover_i,number_of_pages_median,&limit=5';
 
   fetch(apiSearchUrl).then(function (response) {
     if (response.ok) {
-      // I don't see the line of code below doing anything, can we remove?
       bookChoices.innerHTML = '';
       response.json().then(function (data) {
         var pageCoverId = data.docs[0].cover_i;
         // console.log('pageCoverId', pageCoverId);
+
+        // var imgEl = document.getElementById('bookImg');
         // imgEl.innerHTML = 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg'
 
         var searchResults = data.docs;
+        // console.log('SEARCH RESULTS', searchResults);
 
         searchResults.forEach(function (result) {
+          // console.log('RESULT', result);
           var title = result?.title;
           var author = result?.author_name?.[0];
           var coverId = result?.cover_i;
@@ -111,10 +122,10 @@ var getInputValue = function () {
             key: trimKey(key),
           };
 
-          bookItems.push(bookItem);
-          console.log(bookItems);
-
+          searchedBookResults.push(bookItem);
+        
           // Covers API for cover images, link to Search API using cover_i
+
           // display book cover
           // var bookCover = imgEl.setAttribute('src', 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg')
           // return bookCover;
@@ -124,199 +135,79 @@ var getInputValue = function () {
   });
 };
 
+
 // display book cover
 // var bookCover = imgEl.setAttribute('src', 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg')
 // return bookCover;
 
-// represents a book that has been selected from search modal
-var dummyBook = {
-  title: 'Foundation',
-  author: 'Isaac Asimov',
-  coverId: 6501822,
-  pages: 254,
-  key: 'OL46125W',
-};
 
 // create a function that is tied to the add item on the modal, this function will save the book object that is radio selected to a saved books array
-var saveBookToShelf = function (book) {
+var saveBookToLocalStorage = function(book) {
   // when radio button is set up, parameter book will be fed in from radio
-  dummyBook.shelf = 'to-read';
+  book.shelf = "to-read"
   // capture books existing in localStorage with gitItem
-  var savedBooks = localStorage.getItem('booksForShelf');
-
+  // JSON.parse is usually used with getItem to make the information readable by JS
+  var existingBooksOnLocalStorage =  JSON.parse(localStorage.getItem('booksForShelf'))
   // create if (if booksForShelf is empty, create the array)
-  // push selected book into the array
-  // add new item to local storage
-  localStorage.setItem('booksForShelf', JSON.stringify(dummyBook));
+  if(Array.isArray(existingBooksOnLocalStorage) === false) {
+    console.log('there are no books in the array')
+    var newArrayForBooksOnLocalStorage = []
+    // push selected book into the array
+    newArrayForBooksOnLocalStorage.push(book)
+    localStorage.setItem('booksForShelf', JSON.stringify(newArrayForBooksOnLocalStorage))
+    console.log('new array result',JSON.stringify(newArrayForBooksOnLocalStorage) )
+  } else {
+    existingBooksOnLocalStorage.push(book)
+    localStorage.setItem('booksForShelf', JSON.stringify(existingBooksOnLocalStorage))
+    console.log('existing array result', JSON.stringify(existingBooksOnLocalStorage))
+  }
 
-  // parse data to go back to original state that Javascript can understand
 
-  // store new items to array and put it back in local storage
-};
+  console.log(existingBooksOnLocalStorage)
+}
 
-// btnEl.onclick = saveBookToShelf
+
 
 // function will build html elements and display book on to-read shelf / stored in local storage
 // book item object, add key value pair in object for shelf (to-read, reading, read)
-//}
 
-// var showSearchResults = function() {
-// var searchResults = []
-// searchResults.push({})
-// }
 
 var addBookToShelf = function (selectedBookId) {
-  bookItems.find(function (book) {
-    if (book.key === selectedBookId) {
-      var bookCover = book.coverId;
+  searchedBookResults.find(function(book){ 
+    console.log('Add Book to Shelf is running')
+    if(book.key === selectedBookId){
+      saveBookToLocalStorage(book);
       // push items to array (on local storage)
-      var bookshelfRow = document.querySelector('.bookshelf-row');
-      bookshelfRow.classList.add('drag-target');
-      var bookDisplayContainer = document.createElement('div');
-      bookDisplayContainer.classList.add('book-display', 'text-center', 'p-2');
-      var imageAnchor = document.createElement('a');
-      imageAnchor.setAttribute('href', '');
-      imageAnchor.classList.add('book-cover');
-      var imgEl = document.createElement('img');
-      imgEl.setAttribute(
-        'src',
-        `https://covers.openlibrary.org/b/id/${bookCover}-M.jpg`
-      );
-      // book-cover ui-sortable-handle
-
-      // imgEl.innerHTML = `https://covers.openlibrary.org/b/id/${bookCover}-M.jpg`;
-      var bookTitle = document.createElement('h6');
-      bookTitle.innerText = book.title;
-      bookTitle.classList.add('book-item');
-
-      bookshelfRow.appendChild(bookDisplayContainer);
-      bookDisplayContainer.appendChild(imageAnchor);
-      imageAnchor.appendChild(imgEl);
-      bookDisplayContainer.appendChild(bookTitle);
     }
-  });
-
-  $('.drag-target').sortable({
-    revert: true,
-    connectWith: $('.drag-target'),
-    scroll: false,
-    tolerance: 'pointer',
-    helper: 'clone',
-    activate: function (event) {
-      $(this).addClass('dropover');
-    },
-    deactivate: function (event) {
-      $(this).removeClass('dropover');
-    },
-    over: function (event) {
-      $(event.target).addClass('dropover-active');
-    },
-    out: function (event) {
-      $(event.target).removeClass('dropover-active');
-    },
-  });
-};
-
-function getWordDefinitionInput() {
-  return document.getElementById('definition').value;
+  })
 }
-
-var dictionaryDefinition = function (userWordInput) {
-  // dictionary.push(userWordInput);
-
-  // Add searched term variable into url to pull up results
-  var apiWordUrl = `https://api.datamuse.com/words?sp=${userWordInput}&md=d&max=4`;
-
-  if (!userWordInput) {
-    alert('Please enter a valid word');
-  }
-  try {
-    fetch(apiWordUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        populateWordDefinition(data);
-      });
-  } catch (error) {}
-};
-
-function populateWordDefinition(word) {
-  var i = 0;
-  var definitions = word[i].defs;
-  // header for word to be inserted in
-  var wordToDefine = document.querySelector('.word-definition ');
-  wordToDefine.innerText = word[i].word;
-
-  for (i = 0; i < definitions.length; i++) {
-    // container for the definition
-    var definitionContainer = document.querySelector('.definition-text');
-    var definitionEl = document.createElement('div');
-    definitionContainer.appendChild(definitionEl);
-    definitionEl.innerHTML = definitions[i];
-  }
-}
-//   fetch(apiWordUrl).then(function (response) {
-//     if (response.ok) {
-//       // bookChoices.innerHTML = '';
-//       response.json().then(function (data) {
-//         console.log(data);
-//         // returning the word in the API
-//         var wordSearched = data[0].word;
-//         console.log('word searched: ', wordSearched);
-//         // returning the definition of the word
-//         var wordDefinition = data[0].defs;
-//         console.log('definition', wordDefinition);
-//       });
-//     }
-//   });
-// };
 
 addBookBtn.addEventListener('click', function (e) {
-  e.preventDefault();
-  var uncheckedBoxes = 0;
-  console.log(uncheckedBoxes);
-  var bookCheckboxes = document.getElementsByClassName('checkbox');
+  console.log('Add Book was clicked', e);
 
+  var uncheckedBoxes = 0;
+  var bookCheckboxes = document.getElementsByClassName('checkbox');
   for (let i = 0; i < bookCheckboxes.length; i++) {
-    console.log(bookCheckboxes[i].checked);
     if (bookCheckboxes[i].checked) {
-      var selectedBookId = bookCheckboxes[i].getAttribute('data-book-id');
+      var selectedBookId = bookCheckboxes[i].getAttribute('data-book-id')
       addBookToShelf(selectedBookId);
+
     } else {
-      uncheckedBoxes++;
+      uncheckedBoxes++
     }
   }
   if (uncheckedBoxes === bookCheckboxes.length) {
-    alert('Please select a book, or close the window.');
+    alert('Please select a book, or close the window.')
     uncheckedBoxes = 0;
   }
 });
 
-// Why does submit not work for me here?
-definitionBtn.addEventListener('click', function (event) {
-  event.preventDefault();
-  document.querySelector('.definition-text').innerHTML = '';
-  dictionaryDefinition(getWordDefinitionInput());
-});
-// dictionaryDefinition();
 
-// enable draggable/sortable feature on "book-cover" class
+
+
+
+// enable draggable/sortable feaure on "book-cover" class
 
 $('.drag-target').sortable({
-  revert: true,
   connectWith: $('.drag-target'),
-  scroll: false,
-  tolerance: 'pointer',
-  helper: 'clone',
-  activate: function (event) {
-    $(this).addClass('dropover');
-  },
-  deactivate: function (event) {
-    $(this).removeClass('dropover');
-  },
-  over: function (event) {
-    $(event.target).addClass('dropover-active');
-  },
-  out: function (event) {
-    $(event.target).removeClass('dropover-active');
-  },
 });
