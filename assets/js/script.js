@@ -178,10 +178,8 @@ var addBookToShelf = function (selectedBookId) {
     if(book.key === selectedBookId){
       saveBookToLocalStorage(book);
       // push items to array (on local storage)
-<<<<<<< HEAD
-    }
-  })
-=======
+
+
       var bookshelfRow = document.querySelector('.bookshelf-row');
       bookshelfRow.classList.add('drag-target');
       var bookDisplayContainer = document.createElement('div');
@@ -268,7 +266,6 @@ function populateWordDefinition(word) {
     definitionList.appendChild(definitionEl);
     definitionContainer.appendChild(definitionList);
   }
->>>>>>> develop
 }
 
 addBookBtn.addEventListener('click', function (e) {
