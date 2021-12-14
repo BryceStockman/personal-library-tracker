@@ -178,8 +178,97 @@ var addBookToShelf = function (selectedBookId) {
     if(book.key === selectedBookId){
       saveBookToLocalStorage(book);
       // push items to array (on local storage)
+<<<<<<< HEAD
     }
   })
+=======
+      var bookshelfRow = document.querySelector('.bookshelf-row');
+      bookshelfRow.classList.add('drag-target');
+      var bookDisplayContainer = document.createElement('div');
+      bookDisplayContainer.classList.add('book-display', 'col', 'text-center');
+      var imageAnchor = document.createElement('a');
+      imageAnchor.setAttribute('href', '');
+      imageAnchor.classList.add('book-cover');
+      var imgEl = document.createElement('img');
+      imgEl.setAttribute(
+        'src',
+        `https://covers.openlibrary.org/b/id/${bookCover}-M.jpg`
+      );
+      // book-cover ui-sortable-handle
+
+      // imgEl.innerHTML = `https://covers.openlibrary.org/b/id/${bookCover}-M.jpg`;
+      var bookTitle = document.createElement('h6');
+      bookTitle.innerText = book.title;
+      bookTitle.classList.add('book-item');
+
+      bookshelfRow.appendChild(bookDisplayContainer);
+      bookDisplayContainer.appendChild(imageAnchor);
+      imageAnchor.appendChild(imgEl);
+      bookDisplayContainer.appendChild(bookTitle);
+    }
+  });
+
+  $('.drag-target').sortable({
+    revert: true,
+    connectWith: $('.drag-target'),
+    scroll: false,
+    tolerance: 'pointer',
+    helper: 'clone',
+    activate: function (event) {
+      $(this).addClass('dropover');
+    },
+    deactivate: function (event) {
+      $(this).removeClass('dropover');
+    },
+    over: function (event) {
+      $(event.target).addClass('dropover-active');
+    },
+    out: function (event) {
+      $(event.target).removeClass('dropover-active');
+    },
+  });
+};
+
+function getWordDefinitionInput() {
+  return document.getElementById('definition').value;
+}
+
+var dictionaryDefinition = function (userWordInput) {
+  // dictionary.push(userWordInput);
+
+  // Add searched term variable into url to pull up results
+  var apiWordUrl = `https://api.datamuse.com/words?sp=${userWordInput}&md=d&max=4`;
+
+  if (!userWordInput) {
+    alert('Please enter a valid word');
+  }
+  try {
+    fetch(apiWordUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        populateWordDefinition(data);
+      });
+  } catch (error) {}
+};
+
+function populateWordDefinition(word) {
+  var i = 0;
+  var definitions = word[i].defs;
+  // header for word to be inserted in
+  var wordToDefine = document.querySelector('.word-definition ');
+  wordToDefine.innerText = word[i].word;
+  // container for the definition
+  var definitionContainer = document.querySelector('.definition-text');
+  var definitionList = document.createElement('ol');
+
+  for (i = 0; i < definitions.length; i++) {
+    var definitionEl = document.createElement('li');
+    definitionEl.classList.add('word-definitions');
+    definitionEl.innerHTML = definitions[i];
+    definitionList.appendChild(definitionEl);
+    definitionContainer.appendChild(definitionList);
+  }
+>>>>>>> develop
 }
 
 addBookBtn.addEventListener('click', function (e) {
