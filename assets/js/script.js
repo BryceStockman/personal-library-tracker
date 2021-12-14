@@ -12,6 +12,35 @@ var trimKey = function (key) {
 
 var definitionBtn = document.querySelector('.definition-btn');
 
+var loadBooksFromLocalStorage = function(booksForShelf) {
+  Window.onload(JSON.parse(localStorage.getItem("booksForShelf")))
+  for (let i = 0; i < booksForShelf.length; i++) {var addBookToShelf = function (key) {
+    bookItems.find(function (book) {
+      if (book.key === selectedBookId) {
+        var bookCover = book.coverId;
+        // push items to array (on local storage)
+        var bookshelfRow = document.querySelector('.bookshelf-row');
+        bookshelfRow.classList.add('drag-target');
+        var bookDisplayContainer = document.createElement('div');
+        bookDisplayContainer.classList.add('book-display', 'text-center', 'p-2');
+        var imageAnchor = document.createElement('a');
+        imageAnchor.setAttribute('href', '');
+        imageAnchor.classList.add('book-cover');
+        var imgEl = document.createElement('img');
+        imgEl.setAttribute(
+          'src',
+          `https://covers.openlibrary.org/b/id/${bookCover}-M.jpg`
+        );
+    
+  }
+  // on page load, communicate with the local storage to determine if there are any books
+  // if there are books they need to be pulled in to the page
+  // run a for loop to go through the array of "booksForShelf" build the html elements for each book
+   // and place each on the shelf they belong 
+   // this should require conditional statements  (if shelf === read, build on read)
+   // see if shelves are changing as items are dragged and dropped, if not, update jquery to make sure they update so they pull in to the correct shelf.
+}
+
 // build checkbox and labels for modal for all 5 book options
 var buildBookPEl = function () {
   // book choice is a p tag container for one book choice, this is what should be iterated in the loop
