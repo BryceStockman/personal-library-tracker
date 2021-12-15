@@ -10,7 +10,163 @@ var trimKey = function (key) {
   return trimmedKey;
 };
 
+var buildBookButtons = function (key, shelf) {
+  console.log('am I here', key, shelf )
+  var buttonDivEl = document.createElement('div')
+  
+  var buildToReadButtonEl = document.createElement('button')
+  buildToReadButtonEl.innerText = "to Read"
+  buildToReadButtonEl.setAttribute('data-bookId', key)
+  buildToReadButtonEl.setAttribute('class', 'to-read')
+
+  var buildReadingButtonEl = document.createElement('button')
+  buildReadingButtonEl.innerText = "Reading"
+  buildReadingButtonEl.setAttribute('data-bookId', key)
+  buildReadingButtonEl.setAttribute('class', 'reading')
+
+  var buildReadButtonEl = document.createElement('button')
+  buildReadButtonEl.innerText = "Read"
+  buildReadButtonEl.setAttribute('data-bookId', key)
+  buildReadButtonEl.setAttribute('class', 'read')
+
+  if(shelf !== 'to-read'){
+    buttonDivEl.appendChild(buildToReadButtonEl)
+  }
+  if(shelf !== 'reading'){
+    buttonDivEl.appendChild(buildReadingButtonEl)
+  }
+  if(shelf !== 'read'){
+    buttonDivEl.appendChild(buildReadButtonEl)
+  }
+  return buttonDivEl
+}
+
+// when we click read, reading, to read, we need to get the corresponding ID
+$(document).click(function (event) {
+
+  var localStorageBooks = JSON.parse(localStorage.getItem("booksForShelf"))
+
+  // console.log(event)
+  var clickedBookButtonId = event.target.dataset.bookid
+  var clickedButtonClassName = event.target.className
+  console.log(clickedBookButtonId, clickedButtonClassName)
+  var selectedBook = localStorageBooks.find(function (book) {
+    if (clickedBookButtonId === book.key) {
+      return book
+    }
+  })
+
+  var filteredBookArray = localStorageBooks.filter(function (book) {
+    if (book.key != selectedBook.key)
+      return book
+  })
+  if (clickedButtonClassName === 'read') {
+    selectedBook.shelf = 'read'
+  }
+  if (clickedButtonClassName === 'to-read') {
+    console.log('toRead')
+    selectedBook.shelf = 'to-read'
+  }
+  if (clickedButtonClassName === 'reading') {
+    selectedBook.shelf = 'reading'
+  }
+
+  filteredBookArray.push(selectedBook)
+  localStorage.setItem('booksForShelf', JSON.stringify(filteredBookArray))
+  window.location.reload()
+})
+
+
 var definitionBtn = document.querySelector('.definition-btn');
+
+
+// Build books from local storage to display on the page
+var loadBooksFromLocalStorage = function () {
+  var localStorageBooks = JSON.parse(localStorage.getItem("booksForShelf"))
+  console.log(localStorageBooks)
+
+  // tie existing shelves to javascript
+  var bookshelfRow = document.querySelector('.bookshelf-row');
+  var bookshelfToRead = document.querySelector('.to-read-col');
+  var bookshelfReading = document.querySelector('.reading-col');
+  var bookshelfRead = document.querySelector('.read-col');
+
+  // bookshelfRow.classList.add('drag-target');
+
+
+
+
+  for (let i = 0; i < localStorageBooks.length; i++) {
+    console.log(localStorageBooks[i])
+
+
+
+
+    var bookCover = localStorageBooks[i].coverId;
+
+    var bookDisplayContainer = document.createElement('div');
+    bookDisplayContainer.classList.add('book-display', 'text-center', 'p-2');
+    bookDisplayContainer.setAttribute('data-bookId', localStorageBooks[i].key)
+    var imageAnchor = document.createElement('a');
+    imageAnchor.setAttribute('href', '');
+    imageAnchor.classList.add('book-cover');
+    var imgEl = document.createElement('img');
+    imgEl.setAttribute(
+      'src',
+      `https://covers.openlibrary.org/b/id/${bookCover}-M.jpg`
+    );
+
+    var bookTitle = document.createElement('h6');
+    bookTitle.innerText = localStorageBooks[i].title;
+    bookTitle.classList.add('book-item');
+
+    bookshelfRow.appendChild(bookDisplayContainer);
+    bookDisplayContainer.appendChild(imageAnchor);
+    imageAnchor.appendChild(imgEl);
+    bookDisplayContainer.appendChild(bookTitle);
+    bookDisplayContainer.appendChild(buildBookButtons(localStorageBooks[i].key, localStorageBooks[i].shelf))
+
+    if (localStorageBooks[i].shelf === 'read') {
+      bookshelfRead.appendChild(bookDisplayContainer)
+    }
+    if (localStorageBooks[i].shelf === 'to-read') {
+      bookshelfToRead.appendChild(bookDisplayContainer)
+    }
+    if (localStorageBooks[i].shelf === 'reading') {
+      bookshelfReading.appendChild(bookDisplayContainer)
+    }
+
+  }
+}
+//);
+// var addBookToShelf = function (key) {
+// bookItems.find(function (book) {
+//   if (book.key === selectedBookId) {
+//     var bookCover = book.coverId;
+//     // push items to array (on local storage)
+//     var bookshelfRow = document.querySelector('.bookshelf-row');
+//     bookshelfRow.classList.add('drag-target');
+//     var bookDisplayContainer = document.createElement('div');
+//     bookDisplayContainer.classList.add('book-display', 'text-center', 'p-2');
+//     var imageAnchor = document.createElement('a');
+//     imageAnchor.setAttribute('href', '');
+//     imageAnchor.classList.add('book-cover');
+//     var imgEl = document.createElement('img');
+//     imgEl.setAttribute(
+//       'src',
+//       `https://covers.openlibrary.org/b/id/${bookCover}-M.jpg`
+//     );
+//  }
+// })
+// }}
+// }
+// on page load, communicate with the local storage to determine if there are any books
+// if there are books they need to be pulled in to the page
+// run a for loop to go through the array of "booksForShelf" build the html elements for each book
+// and place each on the shelf they belong 
+// this should require conditional statements  (if shelf === read, build on read)
+// see if shelves are changing as items are dragged and dropped, if not, update jquery to make sure they update so they pull in to the correct shelf.
+
 
 // build checkbox and labels for modal for all 5 book options
 var buildBookPEl = function () {
@@ -124,35 +280,32 @@ var getInputValue = function () {
   });
 };
 
-// display book cover
-// var bookCover = imgEl.setAttribute('src', 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg')
-// return bookCover;
-
-// represents a book that has been selected from search modal
-var dummyBook = {
-  title: 'Foundation',
-  author: 'Isaac Asimov',
-  coverId: 6501822,
-  pages: 254,
-  key: 'OL46125W',
-};
-
 // create a function that is tied to the add item on the modal, this function will save the book object that is radio selected to a saved books array
-var saveBookToShelf = function (book) {
+var saveBookToLocalStorage = function (book) {
   // when radio button is set up, parameter book will be fed in from radio
-  dummyBook.shelf = 'to-read';
+  book.shelf = "to-read"
   // capture books existing in localStorage with gitItem
-  var savedBooks = localStorage.getItem('booksForShelf');
-
+  // JSON.parse is usually used with getItem to make the information readable by JS
+  var existingBooksOnLocalStorage = JSON.parse(localStorage.getItem('booksForShelf'))
   // create if (if booksForShelf is empty, create the array)
-  // push selected book into the array
-  // add new item to local storage
-  localStorage.setItem('booksForShelf', JSON.stringify(dummyBook));
+  if (Array.isArray(existingBooksOnLocalStorage) === false) {
+    console.log('there are no books in the array')
+    var newArrayForBooksOnLocalStorage = []
+    // push selected book into the array
+    newArrayForBooksOnLocalStorage.push(book)
+    localStorage.setItem('booksForShelf', JSON.stringify(newArrayForBooksOnLocalStorage))
+    console.log('new array result', JSON.stringify(newArrayForBooksOnLocalStorage))
+  } else {
+    existingBooksOnLocalStorage.push(book)
+    localStorage.setItem('booksForShelf', JSON.stringify(existingBooksOnLocalStorage))
+    console.log('existing array result', JSON.stringify(existingBooksOnLocalStorage))
+  }
 
-  // parse data to go back to original state that Javascript can understand
 
-  // store new items to array and put it back in local storage
-};
+  console.log(existingBooksOnLocalStorage)
+}
+
+
 
 // btnEl.onclick = saveBookToShelf
 
@@ -169,11 +322,18 @@ var addBookToShelf = function (selectedBookId) {
   bookItems.find(function (book) {
     if (book.key === selectedBookId) {
       var bookCover = book.coverId;
+      book.shelf = 'to-read'
+      saveBookToLocalStorage(book)
       // push items to array (on local storage)
       var bookshelfRow = document.querySelector('.bookshelf-row');
-      bookshelfRow.classList.add('drag-target');
+      // bookshelfRow.classList.add('drag-target');
       var bookDisplayContainer = document.createElement('div');
+<<<<<<< HEAD
+      bookDisplayContainer.classList.add('book-display', 'text-center', 'p-2');
+      bookDisplayContainer.setAttribute('data-bookId', book.key)
+=======
       bookDisplayContainer.classList.add('book-display', 'col', 'text-center');
+>>>>>>> develop
       var imageAnchor = document.createElement('a');
       imageAnchor.setAttribute('href', '');
       imageAnchor.classList.add('book-cover');
@@ -193,27 +353,10 @@ var addBookToShelf = function (selectedBookId) {
       bookDisplayContainer.appendChild(imageAnchor);
       imageAnchor.appendChild(imgEl);
       bookDisplayContainer.appendChild(bookTitle);
-    }
-  });
 
-  $('.drag-target').sortable({
-    revert: true,
-    connectWith: $('.drag-target'),
-    scroll: false,
-    tolerance: 'pointer',
-    helper: 'clone',
-    activate: function (event) {
-      $(this).addClass('dropover');
-    },
-    deactivate: function (event) {
-      $(this).removeClass('dropover');
-    },
-    over: function (event) {
-      $(event.target).addClass('dropover-active');
-    },
-    out: function (event) {
-      $(event.target).removeClass('dropover-active');
-    },
+      bookDisplayContainer.appendChild(buildBookButtons(book.key, book.shelf));
+      window.location.reload()
+    }
   });
 };
 
@@ -236,7 +379,7 @@ var dictionaryDefinition = function (userWordInput) {
       .then((data) => {
         populateWordDefinition(data);
       });
-  } catch (error) {}
+  } catch (error) { }
 };
 
 function populateWordDefinition(word) {
@@ -304,22 +447,28 @@ definitionBtn.addEventListener('click', function (event) {
 
 // enable draggable/sortable feature on "book-cover" class
 
-$('.drag-target').sortable({
-  revert: true,
-  connectWith: $('.drag-target'),
-  scroll: false,
-  tolerance: 'pointer',
-  helper: 'clone',
-  activate: function (event) {
-    $(this).addClass('dropover');
-  },
-  deactivate: function (event) {
-    $(this).removeClass('dropover');
-  },
-  over: function (event) {
-    $(event.target).addClass('dropover-active');
-  },
-  out: function (event) {
-    $(event.target).removeClass('dropover-active');
-  },
-});
+// $('.drag-target').sortable({
+//   revert: true,
+//   connectWith: $('.drag-target'),
+//   scroll: false,
+//   tolerance: 'pointer',
+//   helper: 'clone',
+//   activate: function (event) {
+//     console.log('activate', event)
+//     $(this).addClass('dropover');
+//   },
+//   deactivate: function (event) {
+//     console.log(event.target.firstChild.getAttribute('data-bookId'))
+//     $(event.target).removeClass('dropover');
+//   },
+//   over: function (event) {
+//     console.log('over', event)
+//     $(event.target).addClass('dropover-active');
+//   },
+//   out: function (event) {
+//     console.log()
+//     $(event.target).removeClass('dropover-active');
+//   },
+// });
+
+window.onload = loadBooksFromLocalStorage
