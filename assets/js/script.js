@@ -195,7 +195,7 @@ var getInputValue = function () {
 
   // Add searched term variable into url to pull up results
   var apiSearchUrl =
-    'http://openlibrary.org/search.json?q=' +
+    'https://openlibrary.org/search.json?q=' +
     urlReadyValue +
     '&fields=title,author_name,key,cover_i,number_of_pages_median,&limit=10';
 
