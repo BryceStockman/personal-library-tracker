@@ -17,18 +17,21 @@ var buildBookButtons = function (key, shelf) {
   var buildToReadButtonEl = document.createElement('button')
   buildToReadButtonEl.innerText = "to Read"
   buildToReadButtonEl.setAttribute('data-bookId', key)
-  buildToReadButtonEl.classList.add('btn', 'btn-primary', 'to-read')
+  buildToReadButtonEl.setAttribute('class', 'to-read')
+  // buildToReadButtonEl.classList.add('btn', 'btn-primary', 'to-read')
 
   var buildReadingButtonEl = document.createElement('button')
   buildReadingButtonEl.innerText = "Reading"
   buildReadingButtonEl.setAttribute('data-bookId', key)
-  buildReadingButtonEl.classList.add('btn', 'btn-primary', 'reading')
- 
+  buildReadingButtonEl.setAttribute('class', 'reading')
+  // buildReadingButtonEl.classList.add('btn', 'btn-primary', 'reading')
+
 
   var buildReadButtonEl = document.createElement('button')
   buildReadButtonEl.innerText = "Read"
   buildReadButtonEl.setAttribute('data-bookId', key)
-  buildReadButtonEl.classList.add('btn', 'btn-primary', 'read')
+  buildReadButtonEl.setAttribute('class', 'read')
+  // buildReadButtonEl.classList.add('btn', 'btn-primary', 'read')
 
   if(shelf !== 'to-read'){
     buttonDivEl.appendChild(buildToReadButtonEl)
@@ -62,6 +65,7 @@ $(document).click(function (event) {
       return book
   })
   if (clickedButtonClassName === 'read') {
+    console.log('read')
     selectedBook.shelf = 'read'
   }
   if (clickedButtonClassName === 'to-read') {
@@ -69,6 +73,7 @@ $(document).click(function (event) {
     selectedBook.shelf = 'to-read'
   }
   if (clickedButtonClassName === 'reading') {
+    console.log('reading')
     selectedBook.shelf = 'reading'
   }
 
@@ -84,7 +89,9 @@ var definitionBtn = document.querySelector('.definition-btn');
 // Build books from local storage to display on the page
 var loadBooksFromLocalStorage = function () {
   var localStorageBooks = JSON.parse(localStorage.getItem("booksForShelf"))
-  console.log(localStorageBooks)
+
+    if(!Array.isArray(localStorageBooks)) return
+
 
   // tie existing shelves to javascript
   var bookshelfRow = document.querySelector('.bookshelf-row');
@@ -94,14 +101,8 @@ var loadBooksFromLocalStorage = function () {
 
   // bookshelfRow.classList.add('drag-target');
 
-
-
-
   for (let i = 0; i < localStorageBooks.length; i++) {
     console.log(localStorageBooks[i])
-
-
-
 
     var bookCover = localStorageBooks[i].coverId;
 
@@ -274,7 +275,6 @@ var saveBookToLocalStorage = function (book) {
 
   console.log(existingBooksOnLocalStorage)
 }
-
 
 
 
