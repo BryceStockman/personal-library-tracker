@@ -138,34 +138,6 @@ var loadBooksFromLocalStorage = function () {
 
   }
 }
-//);
-// var addBookToShelf = function (key) {
-// bookItems.find(function (book) {
-//   if (book.key === selectedBookId) {
-//     var bookCover = book.coverId;
-//     // push items to array (on local storage)
-//     var bookshelfRow = document.querySelector('.bookshelf-row');
-//     bookshelfRow.classList.add('drag-target');
-//     var bookDisplayContainer = document.createElement('div');
-//     bookDisplayContainer.classList.add('book-display', 'text-center', 'p-2');
-//     var imageAnchor = document.createElement('a');
-//     imageAnchor.setAttribute('href', '');
-//     imageAnchor.classList.add('book-cover');
-//     var imgEl = document.createElement('img');
-//     imgEl.setAttribute(
-//       'src',
-//       `https://covers.openlibrary.org/b/id/${bookCover}-M.jpg`
-//     );
-//  }
-// })
-// }}
-// }
-// on page load, communicate with the local storage to determine if there are any books
-// if there are books they need to be pulled in to the page
-// run a for loop to go through the array of "booksForShelf" build the html elements for each book
-// and place each on the shelf they belong 
-// this should require conditional statements  (if shelf === read, build on read)
-// see if shelves are changing as items are dragged and dropped, if not, update jquery to make sure they update so they pull in to the correct shelf.
 
 
 // build checkbox and labels for modal for all 5 book options
@@ -270,10 +242,7 @@ var getInputValue = function () {
           bookItems.push(bookItem);
           console.log(bookItems);
 
-          // Covers API for cover images, link to Search API using cover_i
-          // display book cover
-          // var bookCover = imgEl.setAttribute('src', 'https://covers.openlibrary.org/b/id/' + pageCoverId + '-M.jpg')
-          // return bookCover;
+        
         });
       });
     }
@@ -307,16 +276,6 @@ var saveBookToLocalStorage = function (book) {
 
 
 
-// btnEl.onclick = saveBookToShelf
-
-// function will build html elements and display book on to-read shelf / stored in local storage
-// book item object, add key value pair in object for shelf (to-read, reading, read)
-//}
-
-// var showSearchResults = function() {
-// var searchResults = []
-// searchResults.push({})
-// }
 
 var addBookToShelf = function (selectedBookId) {
   bookItems.find(function (book) {
@@ -328,12 +287,8 @@ var addBookToShelf = function (selectedBookId) {
       var bookshelfRow = document.querySelector('.bookshelf-row');
       // bookshelfRow.classList.add('drag-target');
       var bookDisplayContainer = document.createElement('div');
-<<<<<<< HEAD
-      bookDisplayContainer.classList.add('book-display', 'text-center', 'p-2');
+      bookDisplayContainer.classList.add('book-display', 'text-center', 'p-2', 'col');
       bookDisplayContainer.setAttribute('data-bookId', book.key)
-=======
-      bookDisplayContainer.classList.add('book-display', 'col', 'text-center');
->>>>>>> develop
       var imageAnchor = document.createElement('a');
       imageAnchor.setAttribute('href', '');
       imageAnchor.classList.add('book-cover');
@@ -400,21 +355,7 @@ function populateWordDefinition(word) {
     definitionContainer.appendChild(definitionList);
   }
 }
-//   fetch(apiWordUrl).then(function (response) {
-//     if (response.ok) {
-//       // bookChoices.innerHTML = '';
-//       response.json().then(function (data) {
-//         console.log(data);
-//         // returning the word in the API
-//         var wordSearched = data[0].word;
-//         console.log('word searched: ', wordSearched);
-//         // returning the definition of the word
-//         var wordDefinition = data[0].defs;
-//         console.log('definition', wordDefinition);
-//       });
-//     }
-//   });
-// };
+
 
 addBookBtn.addEventListener('click', function (e) {
   e.preventDefault();
@@ -443,32 +384,6 @@ definitionBtn.addEventListener('click', function (event) {
   document.querySelector('.definition-text').innerHTML = '';
   dictionaryDefinition(getWordDefinitionInput());
 });
-// dictionaryDefinition();
 
-// enable draggable/sortable feature on "book-cover" class
-
-// $('.drag-target').sortable({
-//   revert: true,
-//   connectWith: $('.drag-target'),
-//   scroll: false,
-//   tolerance: 'pointer',
-//   helper: 'clone',
-//   activate: function (event) {
-//     console.log('activate', event)
-//     $(this).addClass('dropover');
-//   },
-//   deactivate: function (event) {
-//     console.log(event.target.firstChild.getAttribute('data-bookId'))
-//     $(event.target).removeClass('dropover');
-//   },
-//   over: function (event) {
-//     console.log('over', event)
-//     $(event.target).addClass('dropover-active');
-//   },
-//   out: function (event) {
-//     console.log()
-//     $(event.target).removeClass('dropover-active');
-//   },
-// });
 
 window.onload = loadBooksFromLocalStorage
