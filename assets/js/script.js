@@ -17,17 +17,18 @@ var buildBookButtons = function (key, shelf) {
   var buildToReadButtonEl = document.createElement('button')
   buildToReadButtonEl.innerText = "to Read"
   buildToReadButtonEl.setAttribute('data-bookId', key)
-  buildToReadButtonEl.setAttribute('class', 'to-read')
+  buildToReadButtonEl.classList.add('btn', 'btn-primary', 'to-read')
 
   var buildReadingButtonEl = document.createElement('button')
   buildReadingButtonEl.innerText = "Reading"
   buildReadingButtonEl.setAttribute('data-bookId', key)
-  buildReadingButtonEl.setAttribute('class', 'reading')
+  buildReadingButtonEl.classList.add('btn', 'btn-primary', 'reading')
+ 
 
   var buildReadButtonEl = document.createElement('button')
   buildReadButtonEl.innerText = "Read"
   buildReadButtonEl.setAttribute('data-bookId', key)
-  buildReadButtonEl.setAttribute('class', 'read')
+  buildReadButtonEl.classList.add('btn', 'btn-primary', 'read')
 
   if(shelf !== 'to-read'){
     buttonDivEl.appendChild(buildToReadButtonEl)
